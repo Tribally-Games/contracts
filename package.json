@@ -2,7 +2,7 @@
   "name": "@tribally-games/contracts",
   "version": "1.0.0",
   "description": "Tribally Games smart contracts.",
-  "license": "MIT",
+  "license": "AGPL-3.0-only",
   "scripts": {
     "prepare": "forge install && git submodule update --init --recursive && npx husky install && npx husky add .husky/commit-msg 'npx commitlint --edit $1'",    
     "prettify": "prettier --write .",

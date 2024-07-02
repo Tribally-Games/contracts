@@ -1,22 +1,16 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: AGPL-3.0
 pragma solidity >=0.8.21;
 
 import { LibDiamond } from "lib/diamond-2-hardhat/contracts/libraries/LibDiamond.sol";
-import { MetaContext } from "./MetaContext.sol";
-
-/**
-  * @dev Caller/sender must be admin / contract owner.
-  */
-error CallerMustBeAdminError();
-
+import { LibErrors } from "../libs/LibErrors.sol";
 
 /**
  * @dev Access control module.
  */
-abstract contract AccessControl is MetaContext {
+abstract contract AccessControl {
   modifier isAdmin() {
-    if (LibDiamond.contractOwner() != _msgSender()) {
-      revert CallerMustBeAdminError();
+    if (LibDiamond.contractOwner() != msg.sender) {
+      revert LibErrors.CallerMustBeAdminError();
     }
     _;
   }

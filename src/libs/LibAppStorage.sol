@@ -1,12 +1,9 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: AGPL-3.0
 pragma solidity >=0.8.21;
-
-import "../shared/Structs.sol";
 
 struct AppStorage {
     bool diamondInitialized;
     uint256 reentrancyStatus;
-    MetaTxContextStorage metaTxContext;
 
     /*
     TODO: Customize storage variables here
@@ -15,7 +12,30 @@ struct AppStorage {
     new entries. Otherwise, any subsequent upgrades you perform will break the memory structure of your 
     deployed contracts.
     */
-    mapping(address => ERC20Token) erc20s;
+
+    /**
+    * @dev Keep track of used auth signatures.
+    */
+    mapping(bytes32 => bool) authSignatures;
+
+
+    /**
+     * @dev The address of TRIBAL.
+     */
+    address tribalToken;
+
+
+    /**
+     * @dev The address that has the ability to approve withdrawals.
+     */
+    address signer;
+
+    /**
+     * @dev A user's locked balance inside the gateway.
+     *
+     * Depositing into the gateway increases this balance. Withdrawing from the gateway decreases it.
+     */
+    mapping(address => uint) locked;    
 }
 
 library LibAppStorage {
