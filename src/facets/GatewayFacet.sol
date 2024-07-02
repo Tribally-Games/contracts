@@ -22,6 +22,13 @@ contract GatewayFacet {
   event Withdraw(address user, uint amount);
 
   /**
+   * @dev Get the amount of tokens locked for a user.
+   */
+  function locked(address _user) external view returns (uint) {
+    return LibAppStorage.diamondStorage().locked[_user];
+  }
+
+  /**
    * @dev Deposit an amount into the gateway.
    * 
    * @param _user The user to deposit for.   
