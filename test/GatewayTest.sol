@@ -116,6 +116,16 @@ contract GatewayTest is TestBaseContract {
     vm.stopPrank();
   }
 
+  function test_Withdraw_Fails_IfNotEnoughBalance() public {
+    _setupDeposit();
+
+    vm.expectRevert(abi.encodeWithSelector(LibErrors.InsufficientBalanceError.selector));
+    diamond.withdraw(account1, 101, _computeDefaultSig(
+      abi.encodePacked(account1, uint(101)),
+      block.timestamp + 10 seconds
+    ));
+  }
+
   function test_Withdraw_Succeeds_UpdatesBalances() public {
     _setupDeposit();
 
