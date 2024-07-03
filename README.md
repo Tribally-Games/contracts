@@ -31,7 +31,7 @@ Ensure the following pre-requisites are installed
 ```
 $ foundryup
 $ pnpm i
-$ pnpm prepare
+$ pnpm bootstrap
 ```
 
 Create `.env` and set the following within:
