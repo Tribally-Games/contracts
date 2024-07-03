@@ -1,6 +1,6 @@
 require('dotenv').config()
 
-const SALT = "0xf8aac9c60a8577e3e439a5639f65f9eca367e2c6de7086f4b4076c0a895d1902"
+const SALT = "0xf93ac9c60a8577e3e439a5639f65f9eca367e2c6de7086f4b4076c0a895d1902"
 
 module.exports = {
   version: 2,
@@ -83,25 +83,14 @@ module.exports = {
   },
   // Wallets to use for deployment
   wallets: {
-    // Wallet named "wallet1"
-    wallet1: {
+    // Wallet named "local_wallet"
+    local_wallet: {
       // Wallet type - mnemonic
       type: "mnemonic",
       // Wallet config
       config: {
         // Mnemonic phrase
         words: "test test test test test test test test test test test junk",
-        // 0-based index of the account to use
-        index: 0,
-      },
-    },
-    wallet2: {
-      // Wallet type - mnemonic
-      type: "mnemonic",
-      // Wallet config
-      config: {
-        // Mnemonic phrase
-        words: () => process.env.MNEMONIC,
         // 0-based index of the account to use
         index: 0,
       },
@@ -113,12 +102,7 @@ module.exports = {
     local: {
       // RPC endpoint URL
       rpcUrl: "http://localhost:8545",
-    },
-    // Sepolia network
-    sepolia: {
-      // RPC endpoint URL
-      rpcUrl: () => process.env.SEPOLIA_RPC_URL,
-    },
+    }
   },
   // Targets to deploy
   targets: {
@@ -126,21 +110,16 @@ module.exports = {
       // Network to deploy to
       network: "local",
       // Wallet to use for deployment
-      wallet: "wallet1",
+      wallet: "local_wallet",
       // Initialization function arguments
-      initArgs: [],
+      initArgs: [
+        // null token
+        "0x000000000000000000000000000000000000dead", 
+        // default anvil account as signer
+        "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+      ],
       // CREATE3 salt
       create3Salt: SALT,
-    },
-    testnet: {
-      // Network to deploy to
-      network: "sepolia",
-      // Wallet to use for deployment
-      wallet: "wallet2",
-      // Initialization function arguments
-      initArgs: [],
-      // CREATE3 salt
-      create3Salt: SALT,
-    },
+    }
   },
 };
