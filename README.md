@@ -5,11 +5,20 @@
 
 Smart contracts for [Tribally Games](https://tribally.games).
 
+This is a [Diamond Standard](https://eips.ethereum.org/EIPS/eip-2535) upgradeable proxy contract managed using [Gemforge](https://gemforge.xyz/). 
+
+Current ABI:
+
+- `deposit(address user, uint amount)` - deposit TRIBAL token into the gateway for the given wallet.
+- `withdraw(address user, uint amount, bytes authSig)` - withdraw TRIBAL token from the gateway to the given wallet.
+
 ## On-chain addresses
 
 _TODO_
 
-## Requirements
+## Development guide
+
+Ensure the following pre-requisites are installed
 
 * [Node.js 20+](https://nodejs.org)
 * [PNPM](https://pnpm.io/) _(NOTE: `yarn` and `npm` can also be used)_

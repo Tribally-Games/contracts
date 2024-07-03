@@ -3,9 +3,9 @@ pragma solidity ^0.8.24;
 
 import { SignatureChecker } from "lib/openzeppelin-contracts/contracts/utils/cryptography/SignatureChecker.sol";
 import { MessageHashUtils } from "lib/openzeppelin-contracts/contracts/utils/cryptography/MessageHashUtils.sol";
-import { LibErrors } from "./LibErrors.sol";
-import { AuthSignature } from "../shared/Structs.sol";
-import { AppStorage, LibAppStorage } from "./LibAppStorage.sol";
+import { LibErrors } from "src/libs/LibErrors.sol";
+import { AuthSignature } from "src/shared/Structs.sol";
+import { AppStorage, LibAppStorage } from "src/libs/LibAppStorage.sol";
 
 /**
  * @dev Authentication stuff.

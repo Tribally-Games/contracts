@@ -9,7 +9,7 @@
     "devnet": "anvil",
     "clean": "forge clean",
     "test": "forge test -vv",
-    "test-cov": "forge coverage -vv",
+    "test-cov": "forge coverage --report lcov -vv",
     "build": "gemforge build",
     "dep": "gemforge deploy"
   },
@@ -22,7 +22,7 @@
     "gemforge": "^2.7.0",
     "husky": "^8.0.2",
     "prettier": "^2.8.8",
-    "solc": "^0.8.21",
+    "solc": "^0.8.24",
     "solhint": "^3.3.7",
     "solidity-coverage": "^0.7.21",
     "solidity-docgen": "^0.5.17"

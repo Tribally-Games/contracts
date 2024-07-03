@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0
-pragma solidity 0.8.21;
+pragma solidity 0.8.24;
 
-import { LibAppStorage } from "../libs/LibAppStorage.sol";
+import { LibAppStorage } from "src/libs/LibAppStorage.sol";
 
 // From OpenZeppellin: https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/security/ReentrancyGuard.sol
 

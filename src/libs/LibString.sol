@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0
 // Source: // https://gist.github.com/AlmostEfficient/669ac250214f30347097a1aeedcdfa12
-pragma solidity >=0.8.21;
+pragma solidity >=0.8.24;
 
 library LibString {
   /**

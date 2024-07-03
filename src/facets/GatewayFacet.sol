@@ -1,16 +1,17 @@
 // SPDX-License-Identifier: AGPL-3.0
-pragma solidity >=0.8.21;
+pragma solidity >=0.8.24;
 
-import { AppStorage, LibAppStorage } from "../libs/LibAppStorage.sol";
-import { LibErrors } from "../libs/LibErrors.sol";
-import { LibAuth } from "../libs/LibAuth.sol";
-import { LibTribalToken } from "../libs/LibTribalToken.sol";
-import { AuthSignature } from "../shared/Structs.sol";
+import { AppStorage, LibAppStorage } from "src/libs/LibAppStorage.sol";
+import { LibErrors } from "src/libs/LibErrors.sol";
+import { LibAuth } from "src/libs/LibAuth.sol";
+import { LibTribalToken } from "src/libs/LibTribalToken.sol";
+import { AuthSignature } from "src/shared/Structs.sol";
+import { ReentrancyGuard } from "src/shared/ReentrancyGuard.sol";
 
 /**
  * @dev The main gateway facet.
  */
-contract GatewayFacet {
+contract GatewayFacet is ReentrancyGuard {
   /**
    * @dev Emitted when a deposit is made.
    */
@@ -39,7 +40,7 @@ contract GatewayFacet {
 
     s.locked[_user] += _amount;
 
-    LibTribalToken.transfer(_user, address(this), _amount);
+    LibTribalToken.transferFrom(_user, _amount);
     
     emit Deposit(_user, _amount);
   }
@@ -50,7 +51,7 @@ contract GatewayFacet {
     * @param _user The user to withdraw from.
     * @param _amount The amount to withdraw.
    */
-  function withdraw(address _user, uint _amount,  AuthSignature calldata _sig) external {
+  function withdraw(address _user, uint _amount,  AuthSignature calldata _sig) external nonReentrant {
     AppStorage storage s = LibAppStorage.diamondStorage();
 
     LibAuth.assertValidSignature(msg.sender, s.signer, _sig, abi.encodePacked(_user, _amount));
@@ -61,7 +62,7 @@ contract GatewayFacet {
 
     s.locked[_user] -= _amount;
 
-    LibTribalToken.transfer(address(this), _user, _amount);
+    LibTribalToken.transferTo(_user, _amount);
 
     emit Withdraw(_user, _amount);
   }
