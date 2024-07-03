@@ -1,5 +1,5 @@
-![Build status](https://github.com/tribally-games/contracts/actions/workflows/ci.yml/badge.svg?branch=main)
-[![Coverage Status](https://coveralls.io/repos/github/tribally-games/contracts/badge.svg?t=wvNXqi)](https://coveralls.io/github/tribally-games/contracts)
+![Build status](https://github.com/tribally-games/contracts/actions/workflows/ci.yml/badge.svg?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/Tribally-Games/contracts/badge.svg?branch=master)](https://coveralls.io/github/Tribally-Games/contracts?branch=master)
 
 # @tribally-games/contracts
 
