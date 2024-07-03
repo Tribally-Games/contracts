@@ -43,7 +43,7 @@ jobs:
       - run: pnpm bootstrap
 
       - name: Compile
-        run: pnpm build --sizes
+        run: pnpm build
         id: build
 
       - name: Run tests with coverage
