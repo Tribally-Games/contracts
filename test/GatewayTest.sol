@@ -17,6 +17,23 @@ contract GatewayTest is TestBaseContract {
     tribalToken.approve(address(diamond), 101);
   }
 
+  function test_SetSigner_FailsIfNotAdmin() public {
+    assertEq(diamond.signer(), signer);
+
+    vm.prank(account1);
+    vm.expectRevert(abi.encodeWithSelector(LibErrors.CallerMustBeAdminError.selector));
+    diamond.setSigner(account2);
+  }
+
+  function test_SetSigner_Success() public {
+    assertEq(diamond.signer(), signer);
+
+    vm.prank(owner);
+    diamond.setSigner(account2);
+
+    assertEq(diamond.signer(), account2);
+  }
+
   function test_Deposit_FailsIfNotEnoughBalance() public {
     vm.expectRevert(abi.encodeWithSelector(IERC20Errors.ERC20InsufficientBalance.selector, account1, 100, 101));
     diamond.deposit(account1, 101);
@@ -160,5 +177,22 @@ contract GatewayTest is TestBaseContract {
     (address user, uint amount) = abi.decode(entries[1].data, (address,uint256));
     assertEq(user, account1, "Invalid user");
     assertEq(amount, 1, "Invalid amount");
+  }
+
+  function test_Withdraw_Succeeds_NonDefaultSigner() public {
+    _setupDeposit();
+
+    vm.prank(owner);
+    diamond.setSigner(account2);
+
+    diamond.withdraw(account1, 1, _computeSig(
+      account2_key,
+      abi.encodePacked(account1, uint(1)),
+      block.timestamp + 10 seconds
+    ));
+
+    assertEq(1, tribalToken.balanceOf(account1));
+    assertEq(99, tribalToken.balanceOf(address(diamond)));
+    assertEq(99, diamond.locked(account1));
   }
 }

@@ -83,26 +83,33 @@ module.exports = {
   },
   // Wallets to use for deployment
   wallets: {
-    // Wallet named "local_wallet"
     local_wallet: {
-      // Wallet type - mnemonic
       type: "mnemonic",
-      // Wallet config
       config: {
-        // Mnemonic phrase
+        // Mnemonic phrase - same as anvil default wallet
         words: "test test test test test test test test test test test junk",
         // 0-based index of the account to use
         index: 0,
       },
     },
+    deployer_wallet: {
+      type: "private-key",
+      config: {
+        key: "0x3f6011e9040b996418201adaa151d0dd7ed0f3823c1b5c78566e865c860d3b11"
+      },
+    },
   },
   // Networks to deploy to
   networks: {
-    // Local network
     local: {
-      // RPC endpoint URL
       rpcUrl: "http://localhost:8545",
-    }
+    },
+    base_sepolia: {
+      rpcUrl: "https://sepolia.base.org",
+    },
+    base: {
+      rpcUrl: "https://base.llamarpc.com",
+    },
   },
   // Targets to deploy
   targets: {
@@ -120,6 +127,21 @@ module.exports = {
       ],
       // CREATE3 salt
       create3Salt: SALT,
-    }
+    },
+    base_sepolia: {
+      // Network to deploy to
+      network: "base_sepolia",
+      // Wallet to use for deployment
+      wallet: "deployer_wallet",
+      // Initialization function arguments
+      initArgs: [
+        // TRIBAL token - see https://github.com/Tribally-Games/tribal-token
+        "0xD55592FB0907E505C361Ef6D007424f105CcBD93", 
+        // admin is default signer
+        "0x5d96500A2953EE7CE2259E8f62e09094e4b719f6"
+      ],
+      // CREATE3 salt
+      create3Salt: SALT,
+    },
   },
 };
