@@ -26,8 +26,6 @@ Ensure the following pre-requisites are installed
 
 ### Setup
 
-"prepare": "husky install && npx husky add .husky/commit-msg 'npx commitlint --edit $1'",
-
 ```
 $ foundryup
 $ pnpm i
