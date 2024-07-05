@@ -1,4 +1,4 @@
-![Build status](https://github.com/tribally-games/contracts/actions/workflows/ci.yml/badge.svg?branch=master)
+[![Build status](https://github.com/tribally-games/contracts/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/Tribally-Games/contracts/actions/workflows/ci.yml)
 [![Coverage Status](https://coveralls.io/repos/github/Tribally-Games/contracts/badge.svg?branch=master)](https://coveralls.io/github/Tribally-Games/contracts?branch=master)
 
 # @tribally-games/contracts
