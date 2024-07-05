@@ -16,6 +16,11 @@
     return
   }
 
+  const verifierUrls = {
+    base_sepolia: 'https://api-sepolia.basescan.org/api',
+    base: 'https://api.basescan.org/api',
+  }
+
   console.log(`Verifying for target ${target} ...`)
 
   const contracts = (deploymentInfo[target] || {}).contracts || []
@@ -29,7 +34,7 @@
 
     console.log(`Verifying ${name} at ${onChain.address} with args ${args}`)
 
-    await $`forge verify-contract ${onChain.address} ${name} --constructor-args ${args} --chain-id ${deploymentInfo[target].chainId} --verifier etherscan --etherscan-api-key ${process.env.ETHERSCAN_API_KEY} --watch`
+    await $`forge verify-contract ${onChain.address} ${name} --constructor-args ${args} --chain-id ${deploymentInfo[target].chainId} --verifier etherscan --verifier-url ${verifierUrls[target]} --etherscan-api-key ${process.env.ETHERSCAN_API_KEY} --watch`
 
     console.log(`Verified!`)
   }

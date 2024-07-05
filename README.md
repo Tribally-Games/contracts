@@ -35,10 +35,8 @@ $ pnpm bootstrap
 Create `.env` and set the following within:
 
 ```
-LOCAL_RPC_URL=http://localhost:8545
-BASE_SEPOLIA_RPC_URL=<your infura/alchemy endpoint for Base Sepolia>
+DEPLOYER_PRIVATE_KEY=<your deployment wallet private key>
 BASESCAN_API_KEY=<your basescan api key>
-MNEMONIC=<your deployment wallet mnemonic>
 ```
 
 ### Usage
@@ -67,10 +65,10 @@ To deploy to the local target:
 $ pnpm dep local
 ```
 
-To deploy to the public target (Base Sepolia):
+To deploy to Base Sepolia:
 
 ```
-$ pnpm dep testnet
+$ pnpm dep base_sepolia
 ```
 
 For verbose output simply add `-v`:

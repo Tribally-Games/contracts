@@ -95,7 +95,7 @@ module.exports = {
     deployer_wallet: {
       type: "private-key",
       config: {
-        key: "0x3f6011e9040b996418201adaa151d0dd7ed0f3823c1b5c78566e865c860d3b11"
+        key: process.env.DEPLOYER_PRIVATE_KEY
       },
     },
   },
@@ -137,8 +137,8 @@ module.exports = {
       initArgs: [
         // TRIBAL token - see https://github.com/Tribally-Games/tribal-token
         "0xD55592FB0907E505C361Ef6D007424f105CcBD93", 
-        // admin is default signer
-        "0x5d96500A2953EE7CE2259E8f62e09094e4b719f6"
+        // null signer initially
+        "0x000000000000000000000000000000000000dead"
       ],
       // CREATE3 salt
       create3Salt: SALT,
