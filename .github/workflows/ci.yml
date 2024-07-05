@@ -10,6 +10,8 @@ jobs:
     strategy:
       fail-fast: true
 
+    env:      
+      DEPLOYER_PRIVATE_KEY: 0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef
     name: ci
     runs-on: ubuntu-latest
     # https://docs.github.com/en/actions/reference/authentication-in-a-workflow
