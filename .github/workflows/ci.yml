@@ -4,14 +4,13 @@ on: push
 
 env:
   FOUNDRY_PROFILE: ci
+  DEPLOYER_PRIVATE_KEY: '0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef'
 
 jobs:
   check:
     strategy:
       fail-fast: true
 
-    env:      
-      DEPLOYER_PRIVATE_KEY: 0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef
     name: ci
     runs-on: ubuntu-latest
     # https://docs.github.com/en/actions/reference/authentication-in-a-workflow
@@ -48,7 +47,7 @@ jobs:
         run: pnpm build
         id: build
 
-      - name: Run tests with coverage
+      - name: Run tests with coverage"
         run: pnpm test-cov
         id: test
 
