@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: AGPL-3.0
-pragma solidity >=0.8.24;
+pragma solidity ^0.8.24;
 
 import { IERC20 } from "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
 import { LibAppStorage } from "src/libs/LibAppStorage.sol";

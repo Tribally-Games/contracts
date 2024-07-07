@@ -4,7 +4,7 @@
   "description": "Tribally Games smart contracts.",
   "license": "AGPL-3.0-only",
   "scripts": {
-    "bootstrap": "forge install && git submodule update --init --recursive && npx husky install && npx husky add .husky/commit-msg 'npx commitlint --edit $1'",    
+    "bootstrap": "forge install && git submodule update --init --recursive && npx husky install && npx husky add .husky/commit-msg 'npx commitlint --edit $1'",
     "prettify": "prettier --write .",
     "devnet": "anvil",
     "clean": "forge clean",
@@ -18,11 +18,10 @@
     "@commitlint/config-conventional": "^17.2.0",
     "@types/node": "^18.16.16",
     "dotenv": "^16.3.1",
-    "execa": "^8.0.1",
     "gemforge": "^2.7.0",
     "husky": "^8.0.2",
     "prettier": "^2.8.8",
-    "solc": "^0.8.24",
+    "shelljs": "^0.8.5",
     "solhint": "^3.3.7",
     "solidity-coverage": "^0.7.21",
     "solidity-docgen": "^0.5.17"

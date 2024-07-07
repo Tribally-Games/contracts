@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-(async () => {
+(() => {
   require('dotenv').config()
-  const { $ } = (await import('execa'))
+  const shell = require('shelljs')
 
   const deploymentInfo = require('../gemforge.deployments.json')
 
@@ -25,17 +25,22 @@
 
   const contracts = (deploymentInfo[target] || {}).contracts || []
 
+  const _exec = (cmd) => {
+    console.log(`---> ${cmd}`)
+    return shell.exec(cmd).stdout.trim()
+  }
+
   for (let { name, onChain } of contracts) {
+    console.log(`\n\nVerifying ${name} ...`)
+    
     let args = '0x'
 
     if (onChain.constructorArgs.length) {
-      args = (await $`cast abi-encode constructor(address) ${onChain.constructorArgs.join(' ')}`).stdout
+      args = _exec(`cast abi-encode "constructor(address)" ${onChain.constructorArgs.join(' ')}`)
     }
 
     console.log(`Verifying ${name} at ${onChain.address} with args ${args}`)
 
-    await $`forge verify-contract ${onChain.address} ${name} --constructor-args ${args} --chain-id ${deploymentInfo[target].chainId} --verifier etherscan --verifier-url ${verifierUrls[target]} --etherscan-api-key ${process.env.ETHERSCAN_API_KEY} --watch`
-
-    console.log(`Verified!`)
+    _exec(`forge verify-contract --chain ${deploymentInfo[target].chainId} --verifier etherscan --verifier-url ${verifierUrls[target]} --etherscan-api-key ${process.env.BASESCAN_API_KEY} --num-of-optimizations 200 --watch --constructor-args ${args} ${onChain.address} ${name}`)
   }
 })()

@@ -1,0 +1,49 @@
+{
+  "base_sepolia": {
+    "chainId": 84532,
+    "contracts": [
+      {
+        "name": "DiamondProxy",
+        "fullyQualifiedName": "DiamondProxy.sol:DiamondProxy",
+        "sender": "0x850D23aBc6c13A698400C147A885E7e0B2CB376A",
+        "txHash": "0xb0ed790044af4925312f61184e4b2dc16096c0b6355ccab41ee809a9e5e9e0fb",
+        "onChain": {
+          "address": "0x5A2731f30B7d94BBBE2D0b0B23fAfac1535810A8",
+          "constructorArgs": [
+            "0x850D23aBc6c13A698400C147A885E7e0B2CB376A"
+          ]
+        }
+      },
+      {
+        "name": "ConfigFacet",
+        "fullyQualifiedName": "ConfigFacet.sol:ConfigFacet",
+        "sender": "0x850D23aBc6c13A698400C147A885E7e0B2CB376A",
+        "txHash": "0xb7f230e53c94901fd0ad37e7a485ed7caeab08b0ef15510d548b8245e5f7bb03",
+        "onChain": {
+          "address": "0xf76Ce7820667C44C405C0EBb8E9ad484486F9214",
+          "constructorArgs": []
+        }
+      },
+      {
+        "name": "GatewayFacet",
+        "fullyQualifiedName": "GatewayFacet.sol:GatewayFacet",
+        "sender": "0x850D23aBc6c13A698400C147A885E7e0B2CB376A",
+        "txHash": "0x614f2de10f434cf6ee71b37787e05bd6de48034483f1b0fce62fe7c089fe0808",
+        "onChain": {
+          "address": "0x83061d1f382412e42466FA8fc80E947B83D1Fb16",
+          "constructorArgs": []
+        }
+      },
+      {
+        "name": "InitDiamond",
+        "fullyQualifiedName": "InitDiamond.sol:InitDiamond",
+        "sender": "0x850D23aBc6c13A698400C147A885E7e0B2CB376A",
+        "txHash": "0xcc57000c4de30007e49bcc4a2b449f66b5f52eda59c272027203c8b96dc53973",
+        "onChain": {
+          "address": "0x40eE016cc48F226193c1F207830c5Af34e2709a7",
+          "constructorArgs": []
+        }
+      }
+    ]
+  }
+}

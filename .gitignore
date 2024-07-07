@@ -20,6 +20,3 @@ broadcast/
 
 # VS Code
 .vscode
-
-# Gemforge
-gemforge.deployments.json
