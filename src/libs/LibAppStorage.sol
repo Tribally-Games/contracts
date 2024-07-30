@@ -24,7 +24,6 @@ struct AppStorage {
      */
     address tribalToken;
 
-
     /**
      * @dev The address that has the ability to approve withdrawals.
      */

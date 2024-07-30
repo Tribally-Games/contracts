@@ -14,6 +14,13 @@ import { AppStorage, LibAppStorage } from "src/libs/LibAppStorage.sol";
  */
 library LibAuth {
   /**
+   * @dev Generate signature payload.
+   */
+  function generateSignaturePayload(bytes memory _data, uint _deadline) internal view returns (bytes memory) { 
+    return abi.encodePacked(_data, _deadline, block.chainid); 
+  }
+
+  /**
    * @dev Assert validity of given signature.
    */
   function assertValidSignature(address _caller, address _signer, AuthSignature memory _sig, bytes memory _data) internal {
@@ -23,7 +30,10 @@ library LibAuth {
       revert LibErrors.SignatureExpired(_caller); 
     }
 
-    bytes32 digest = MessageHashUtils.toEthSignedMessageHash(abi.encodePacked(_data, _sig.deadline));
+    bytes32 digest = MessageHashUtils.toEthSignedMessageHash(
+      LibAuth.generateSignaturePayload(_data, _sig.deadline)
+    );
+
     if (!SignatureChecker.isValidSignatureNow(_signer, digest, _sig.signature)) {
       revert LibErrors.SignatureInvalid(_caller);
     }

@@ -11,6 +11,7 @@ import { IDiamondProxy } from "src/generated/IDiamondProxy.sol";
 import { LibDiamondHelper } from "src/generated/LibDiamondHelper.sol";
 import { InitDiamond } from "src/init/InitDiamond.sol";
 import { AuthSignature } from "src/shared/Structs.sol";
+import { LibAuth } from "src/libs/LibAuth.sol";
 
 contract MockERC20 is ERC20 {
   constructor() ERC20("MockERC20", "MOCKERC20") {}
@@ -61,8 +62,10 @@ abstract contract TestBaseContract is Test {
     return _computeSig(signer_key, _data, _deadline);
   }
 
-  function _computeSig(uint _key, bytes memory _data, uint _deadline) internal pure returns (AuthSignature memory) {
-    bytes32 sigHash = MessageHashUtils.toEthSignedMessageHash(abi.encodePacked(_data, _deadline));
+  function _computeSig(uint _key, bytes memory _data, uint _deadline) internal view returns (AuthSignature memory) {
+    bytes32 sigHash = MessageHashUtils.toEthSignedMessageHash(
+      LibAuth.generateSignaturePayload(_data, _deadline)
+    );
     (uint8 v, bytes32 r, bytes32 s) = vm.sign(_key, sigHash);
     return AuthSignature({
       signature: abi.encodePacked(r, s, v),
