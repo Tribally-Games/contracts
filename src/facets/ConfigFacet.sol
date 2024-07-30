@@ -10,6 +10,11 @@ import { LibErrors } from "src/libs/LibErrors.sol";
  */
 contract ConfigFacet is AccessControl {
   /**
+   * @dev Emitted when the signer address is changed.
+   */
+  event SignerChanged(address newSigner);
+  
+  /**
    * @dev Get the signer address.
    */
   function signer() external view returns (address) {
@@ -27,5 +32,7 @@ contract ConfigFacet is AccessControl {
     }
 
     LibAppStorage.diamondStorage().signer = _signer;
+
+    emit SignerChanged(_signer);
   }
 }

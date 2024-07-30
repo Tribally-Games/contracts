@@ -42,6 +42,24 @@ contract GatewayTest is TestBaseContract {
     assertEq(diamond.signer(), account2);
   }
 
+  function test_SetSigner_EmitsEvent() public { 
+    vm.recordLogs();
+
+    vm.prank(owner);
+    diamond.setSigner(account2);
+
+    Vm.Log[] memory entries = vm.getRecordedLogs();
+
+    assertEq(entries.length, 1, "Invalid entry count");
+    assertEq(
+        entries[0].topics[0],
+        keccak256("SignerChanged(address)"),
+        "Invalid event signature"
+    );
+    (address user) = abi.decode(entries[0].data, (address));  
+    assertEq(user, account2, "Invalid signer");
+  }
+
   function test_Deposit_FailsIfNotEnoughBalance() public {
     vm.expectRevert(abi.encodeWithSelector(IERC20Errors.ERC20InsufficientBalance.selector, account1, 100, 101));
     diamond.deposit(account1, 101);
