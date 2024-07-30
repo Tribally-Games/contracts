@@ -25,6 +25,14 @@ contract GatewayTest is TestBaseContract {
     diamond.setSigner(account2);
   }
 
+  function test_SetSigner_FailsIfZeroAddress() public {
+    assertEq(diamond.signer(), signer);
+
+    vm.prank(owner);
+    vm.expectRevert(abi.encodeWithSelector(LibErrors.InvalidSignerError.selector));
+    diamond.setSigner(address(0));
+  }
+
   function test_SetSigner_Success() public {
     assertEq(diamond.signer(), signer);
 

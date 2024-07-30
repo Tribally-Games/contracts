@@ -3,6 +3,11 @@ pragma solidity ^0.8.24;
 
 library LibErrors {
   /**
+   * @dev The signer address is invalid.
+   */
+  error InvalidSignerError();
+
+  /**
   * @dev Caller/sender must be admin / contract owner.
   */
   error CallerMustBeAdminError();

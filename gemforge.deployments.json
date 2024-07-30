@@ -45,5 +45,52 @@
         }
       }
     ]
+  },
+  "local": {
+    "chainId": 31337,
+    "contracts": [
+      {
+        "name": "DiamondProxy",
+        "fullyQualifiedName": "DiamondProxy.sol:DiamondProxy",
+        "sender": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "txHash": "0x23049eb1032178a4855cfaf50e018ee2e481211c77b7c3978857c6fab950ea7b",
+        "onChain": {
+          "address": "0x9DBa5Df6280165782B4282cf406B839EED7Fe8ce",
+          "constructorArgs": [
+            "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+          ]
+        }
+      },
+      {
+        "name": "ConfigFacet",
+        "fullyQualifiedName": "ConfigFacet.sol:ConfigFacet",
+        "sender": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "txHash": "0x0009a03737ef7c9449858965f1e141f6c22f4709dcacc2183421b97eb50119b8",
+        "onChain": {
+          "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+          "constructorArgs": []
+        }
+      },
+      {
+        "name": "GatewayFacet",
+        "fullyQualifiedName": "GatewayFacet.sol:GatewayFacet",
+        "sender": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "txHash": "0x56206c59d994439c63404431c834fa54601db3af678a3282d52e0bc24c284578",
+        "onChain": {
+          "address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+          "constructorArgs": []
+        }
+      },
+      {
+        "name": "InitDiamond",
+        "fullyQualifiedName": "InitDiamond.sol:InitDiamond",
+        "sender": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "txHash": "0x22a0a5976cb45a459a5a3e9af9fb24253d234fbcac4f981c3221394827d1fe28",
+        "onChain": {
+          "address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+          "constructorArgs": []
+        }
+      }
+    ]
   }
 }

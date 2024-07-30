@@ -16,8 +16,8 @@ contract InitDiamond {
     s.diamondInitialized = true;
 
     /*
-        TODO: add custom initialization logic here
-    */
+     * NOTE: no need to check for zero address as these are only called once during deployment.
+     */
     s.tribalToken = _tribalToken;
     s.signer = _signer;
 
