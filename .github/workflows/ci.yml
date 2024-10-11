@@ -42,13 +42,14 @@ jobs:
       - run: forge install          
       - run: pnpm i
       - run: pnpm bootstrap
-      - run: cat ./src/generated/IDiamondProxy.sol
-      - run: cat ./src/generated/LibDiamondHelper.sol
 
       - name: Compile
         run: pnpm build
         id: build
 
+      - run: cat ./src/generated/IDiamondProxy.sol
+      - run: cat ./src/generated/LibDiamondHelper.sol
+  
       - name: Run tests with coverage
         run: pnpm test-cov
         id: test
