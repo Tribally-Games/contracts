@@ -54,23 +54,18 @@ contract ConfigTest is TestBaseContract {
     }
 
     function test_SetStakingToken_FailsIfNotAdmin() public {
-        address currentStakingToken = diamond.stakingToken();
-
         vm.prank(account1);
         vm.expectRevert(abi.encodeWithSelector(LibErrors.CallerMustBeAdminError.selector));
         diamond.setStakingToken(address(0xABC));
     }
 
     function test_SetStakingToken_FailsIfZeroAddress() public {
-        address currentStakingToken = diamond.stakingToken();
-
         vm.prank(owner);
         vm.expectRevert(abi.encodeWithSelector(LibErrors.InvalidStakingTokenError.selector));
         diamond.setStakingToken(address(0));
     }
 
     function test_SetStakingToken_Success() public {
-        address currentStakingToken = diamond.stakingToken();
         address newStakingToken = address(0xABC);
 
         vm.prank(owner);
