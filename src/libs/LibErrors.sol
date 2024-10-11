@@ -18,6 +18,11 @@ library LibErrors {
   error InsufficientBalanceError();
 
   /**
+   * @dev The staking token address is invalid.
+   */
+  error InvalidStakingTokenError();
+
+  /**
    * @dev The caller supplied an expired signature.
    */
   error SignatureExpired(address caller);

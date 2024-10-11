@@ -70,7 +70,7 @@ contract StakingFacet {
           revert LibErrors.InsufficientBalanceError();
         }
 
-        if (!IERC20(s.stakingToken).transferFrom(address(this), user, amount)) {
+        if (!IERC20(s.stakingToken).transfer(user, amount)) {
           revert LibErrors.TransferFailed();
         }
 
@@ -95,13 +95,13 @@ contract StakingFacet {
         }
         
         LibAuth.assertValidSignature(
-            user,
+            msg.sender,
             s.signer,
             signature,
             abi.encodePacked(amount, claimToken, user)
         );
 
-        if (!IERC20(claimToken).transferFrom(address(this), user, amount)) {
+        if (!IERC20(claimToken).transfer(user, amount)) {
           revert LibErrors.TransferFailed();
         }
 
@@ -113,15 +113,16 @@ contract StakingFacet {
     }
 
     /** @dev Records a staking payout for a specific token
+     * @param source Address of the user or contract that is paying out
      * @param token Address of the token being paid out
      * @param amount Amount of tokens being paid out
      */
-    function stakeRecordPayout(address token, uint256 amount) external {
+    function stakeRecordPayout(address source, address token, uint256 amount) external {
         if (amount == 0) {
           revert LibErrors.AmountMustBeGreaterThanZero();
         }
 
-        if (!IERC20(token).transferFrom(msg.sender, address(this), amount)) {
+        if (!IERC20(token).transferFrom(source, address(this), amount)) {
           revert LibErrors.TransferFailed();
         }
 
@@ -139,6 +140,14 @@ contract StakingFacet {
         }
 
         emit StakePayoutRecorded(token, amount, currentDay);
+    }
+
+    /** @dev Gets the total amount staked across all users.
+     * @return Total amount staked.
+     */
+    function stakeGetTotalStaked() external view returns (uint256) {
+        AppStorage storage s = LibAppStorage.diamondStorage();
+        return s.stakingTotalStaked;
     }
 
     /** @dev Gets the total amount staked by a user
