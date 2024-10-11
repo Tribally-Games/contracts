@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: AGPL-3.0
-pragma solidity 0.8.24;
+pragma solidity 0.8.27;
 
 library LibErrors {
   /**
@@ -18,6 +18,11 @@ library LibErrors {
   error InsufficientBalanceError();
 
   /**
+   * @dev The staking token address is invalid.
+   */
+  error InvalidStakingTokenError();
+
+  /**
    * @dev The caller supplied an expired signature.
    */
   error SignatureExpired(address caller);
@@ -31,4 +36,14 @@ library LibErrors {
    * @dev The caller supplied an already used signature.
    */
   error SignatureAlreadyUsed(address caller);
+
+  /**
+   * @dev The amount must be greater than zero.
+   */
+  error AmountMustBeGreaterThanZero();
+
+  /**
+   * @dev The transfer of tokens failed.
+   */
+  error TransferFailed();
 }

@@ -35,7 +35,7 @@ jobs:
           node-version: 20
 
       - run: echo "/root/.cargo/bin:/root/.foundry/bin:/root/.bun/bin" >> $GITHUB_PATH
-      - run: svm install 0.8.24 && svm use 0.8.24
+      - run: svm install 0.8.27 && svm use 0.8.27
       # disable safe.directory system to avoid forge install error
       - run: git config --global --add safe.directory '*' 
       # install deps
@@ -47,7 +47,10 @@ jobs:
         run: pnpm build
         id: build
 
-      - name: Run tests with coverage"
+      - run: cat ./src/generated/IDiamondProxy.sol
+      - run: cat ./src/generated/LibDiamondHelper.sol
+  
+      - name: Run tests with coverage
         run: pnpm test-cov
         id: test
 

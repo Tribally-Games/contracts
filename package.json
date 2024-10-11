@@ -18,7 +18,7 @@
     "@commitlint/config-conventional": "^17.2.0",
     "@types/node": "^18.16.16",
     "dotenv": "^16.3.1",
-    "gemforge": "^2.7.0",
+    "gemforge": "^2.10.0",
     "husky": "^8.0.2",
     "prettier": "^2.8.8",
     "shelljs": "^0.8.5",
