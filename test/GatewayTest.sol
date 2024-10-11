@@ -17,49 +17,6 @@ contract GatewayTest is TestBaseContract {
     tribalToken.approve(address(diamond), 101);
   }
 
-  function test_SetSigner_FailsIfNotAdmin() public {
-    assertEq(diamond.signer(), signer);
-
-    vm.prank(account1);
-    vm.expectRevert(abi.encodeWithSelector(LibErrors.CallerMustBeAdminError.selector));
-    diamond.setSigner(account2);
-  }
-
-  function test_SetSigner_FailsIfZeroAddress() public {
-    assertEq(diamond.signer(), signer);
-
-    vm.prank(owner);
-    vm.expectRevert(abi.encodeWithSelector(LibErrors.InvalidSignerError.selector));
-    diamond.setSigner(address(0));
-  }
-
-  function test_SetSigner_Success() public {
-    assertEq(diamond.signer(), signer);
-
-    vm.prank(owner);
-    diamond.setSigner(account2);
-
-    assertEq(diamond.signer(), account2);
-  }
-
-  function test_SetSigner_EmitsEvent() public { 
-    vm.recordLogs();
-
-    vm.prank(owner);
-    diamond.setSigner(account2);
-
-    Vm.Log[] memory entries = vm.getRecordedLogs();
-
-    assertEq(entries.length, 1, "Invalid entry count");
-    assertEq(
-        entries[0].topics[0],
-        keccak256("SignerChanged(address)"),
-        "Invalid event signature"
-    );
-    (address user) = abi.decode(entries[0].data, (address));  
-    assertEq(user, account2, "Invalid signer");
-  }
-
   function test_Deposit_FailsIfNotEnoughBalance() public {
     vm.expectRevert(abi.encodeWithSelector(IERC20Errors.ERC20InsufficientBalance.selector, account1, 100, 101));
     diamond.deposit(account1, 101);

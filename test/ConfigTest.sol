@@ -10,48 +10,48 @@ contract ConfigTest is TestBaseContract {
         super.setUp();
     }
 
-    function test_SetSigner_FailsIfNotAdmin() public {
-        assertEq(diamond.signer(), signer);
+  function test_SetSigner_FailsIfNotAdmin() public {
+    assertEq(diamond.signer(), signer);
 
-        vm.prank(account1);
-        vm.expectRevert(abi.encodeWithSelector(LibErrors.CallerMustBeAdminError.selector));
-        diamond.setSigner(account2);
-    }
+    vm.prank(account1);
+    vm.expectRevert(abi.encodeWithSelector(LibErrors.CallerMustBeAdminError.selector));
+    diamond.setSigner(account2);
+  }
 
-    function test_SetSigner_FailsIfZeroAddress() public {
-        assertEq(diamond.signer(), signer);
+  function test_SetSigner_FailsIfZeroAddress() public {
+    assertEq(diamond.signer(), signer);
 
-        vm.prank(owner);
-        vm.expectRevert(abi.encodeWithSelector(LibErrors.InvalidSignerError.selector));
-        diamond.setSigner(address(0));
-    }
+    vm.prank(owner);
+    vm.expectRevert(abi.encodeWithSelector(LibErrors.InvalidSignerError.selector));
+    diamond.setSigner(address(0));
+  }
 
-    function test_SetSigner_Success() public {
-        assertEq(diamond.signer(), signer);
+  function test_SetSigner_Success() public {
+    assertEq(diamond.signer(), signer);
 
-        vm.prank(owner);
-        diamond.setSigner(account2);
+    vm.prank(owner);
+    diamond.setSigner(account2);
 
-        assertEq(diamond.signer(), account2);
-    }
+    assertEq(diamond.signer(), account2);
+  }
 
-    function test_SetSigner_EmitsEvent() public {
-        vm.recordLogs();
+  function test_SetSigner_EmitsEvent() public { 
+    vm.recordLogs();
 
-        vm.prank(owner);
-        diamond.setSigner(account2);
+    vm.prank(owner);
+    diamond.setSigner(account2);
 
-        Vm.Log[] memory entries = vm.getRecordedLogs();
+    Vm.Log[] memory entries = vm.getRecordedLogs();
 
-        assertEq(entries.length, 1, "Invalid entry count");
-        assertEq(
-            entries[0].topics[0],
-            keccak256("SignerChanged(address)"),
-            "Invalid event signature"
-        );
-        (address newSigner) = abi.decode(entries[0].data, (address));
-        assertEq(newSigner, account2, "Invalid new signer");
-    }
+    assertEq(entries.length, 1, "Invalid entry count");
+    assertEq(
+        entries[0].topics[0],
+        keccak256("SignerChanged(address)"),
+        "Invalid event signature"
+    );
+    (address user) = abi.decode(entries[0].data, (address));  
+    assertEq(user, account2, "Invalid signer");
+  }
 
     function test_SetStakingToken_FailsIfNotAdmin() public {
         vm.prank(account1);
