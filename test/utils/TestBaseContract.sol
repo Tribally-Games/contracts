@@ -36,23 +36,23 @@ abstract contract TestBaseContract is Test {
   MockERC20 public tribalToken;
 
   function setUp() public virtual {
-    // console2.log("\n -- Test Base\n");
+    console2.log("\n -- Test Base\n");
 
-    // console2.log("Test contract address, aka account0", address(this));
-    // console2.log("msg.sender during setup", msg.sender);
+    console2.log("Test contract address, aka account0", address(this));
+    console2.log("msg.sender during setup", msg.sender);
 
     vm.label(signer, "Default signer");
     vm.label(owner, "Owner");
     vm.label(account1, "Account 1");
     vm.label(account2, "Account 2");
 
-    // console2.log("Deploy diamond");
+    console2.log("Deploy diamond");
     diamond = IDiamondProxy(address(new DiamondProxy(owner)));
 
-    // console2.log("Deploy Mock ERC20");
+    console2.log("Deploy Mock ERC20");
     tribalToken = new MockERC20();
 
-    // console2.log("Cut and init");
+    console2.log("Cut and init");
     IDiamondCut.FacetCut[] memory cut = LibDiamondHelper.deployFacetsAndGetCuts(address(diamond));
     InitDiamond init = new InitDiamond();
     diamond.diamondCut(cut, address(init), abi.encodeWithSelector(init.init.selector, address(tribalToken), signer));
