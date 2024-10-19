@@ -14,7 +14,7 @@ Current ABI:
 
 ## On-chain addresses
 
-* Base Sepolia: `0x5a2731f30b7d94bbbe2d0b0b23fafac1535810a8` ([Basescan](https://sepolia.basescan.org/address/0x5a2731f30b7d94bbbe2d0b0b23fafac1535810a8), [Louper](https://louper.dev/diamond/0x5a2731f30b7d94bbbe2d0b0b23fafac1535810a8?network=baseSepolia))
+* Base Sepolia: `0x756B16467553c68e5a8bAB9146661C07745410Cb` ([Basescan](https://sepolia.basescan.org/address/0x756B16467553c68e5a8bAB9146661C07745410Cb), [Louper](https://louper.dev/diamond/0x756B16467553c68e5a8bAB9146661C07745410Cb?network=baseSepolia))
 
 ## Development guide
 

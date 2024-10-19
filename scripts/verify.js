@@ -2,6 +2,7 @@
 (() => {
   require('dotenv').config()
   const shell = require('shelljs')
+  const gemforgeConfig = require('../gemforge.config.cjs')
 
   const deploymentInfo = require('../gemforge.deployments.json')
 
@@ -41,6 +42,6 @@
 
     console.log(`Verifying ${name} at ${onChain.address} with args ${args}`)
 
-    _exec(`forge verify-contract --chain ${deploymentInfo[target].chainId} --verifier etherscan --verifier-url ${verifierUrls[target]} --etherscan-api-key ${process.env.BASESCAN_API_KEY} --num-of-optimizations 200 --watch --constructor-args ${args} ${onChain.address} ${name}`)
+    _exec(`forge verify-contract --chain ${deploymentInfo[target].chainId} --verifier etherscan --verifier-url ${verifierUrls[target]} --etherscan-api-key ${process.env.BASESCAN_API_KEY} --num-of-optimizations 200 --watch --constructor-args ${args} ${onChain.address} ${name} --compiler-version ${gemforgeConfig.solc.version}`)
   }
 })()

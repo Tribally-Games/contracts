@@ -1,6 +1,6 @@
 require('dotenv').config()
 
-const SALT = "0xf93ac9c61a8577e3e439a5639f65f9eca367e2c6de7086f3b4076c0a895d1905"
+const SALT = "0xf93ac9c61a8577e3e439a5639f65f9eca367e2c6de7086f3b4076c0a895d1901"
 
 module.exports = {
   version: 2,
@@ -8,7 +8,7 @@ module.exports = {
     // SPDX License - to be inserted in all generated .sol files
     license: "MIT",
     // Solidity compiler version - to be inserted in all generated .sol files
-    version: "0.8.27",
+    version: "0.8.24",
   },
   // commands to execute
   commands: {

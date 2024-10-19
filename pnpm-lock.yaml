@@ -21,8 +21,8 @@ importers:
         specifier: ^16.3.1
         version: 16.4.5
       gemforge:
-        specifier: ^2.10.0
-        version: 2.10.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+        specifier: ^2.12.1
+        version: 2.12.1(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       husky:
         specifier: ^8.0.2
         version: 8.0.3
@@ -1204,8 +1204,8 @@ packages:
   function-bind@1.1.2:
     resolution: {integrity: sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==}
 
-  gemforge@2.10.0:
-    resolution: {integrity: sha512-yL4dFVRsw49kepjI67MRQnoAq5qJ9PSz2HFhE5peLIo5Pc1ce860iTMAL7F1eGs0KKyhjzjxPE66nPOH9xhONQ==}
+  gemforge@2.12.1:
+    resolution: {integrity: sha512-3grKf0hHGKUG+TmVW1MOttxRM7yX1XgAZlSgHQOtmK0+V/Nrk4QVLydMNSJeTyFYKYHl10i1qpe7mBPJrWgMmQ==}
     engines: {node: '>=20.0.0'}
     hasBin: true
 
@@ -4517,7 +4517,7 @@ snapshots:
 
   function-bind@1.1.2: {}
 
-  gemforge@2.10.0(bufferutil@4.0.8)(utf-8-validate@5.0.10):
+  gemforge@2.12.1(bufferutil@4.0.8)(utf-8-validate@5.0.10):
     dependencies:
       '@solidity-parser/parser': 0.16.2
       bigval: 1.7.0
