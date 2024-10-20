@@ -79,7 +79,7 @@ module.exports = {
     // shell command to execute before deploy
     preDeploy: "",
     // shell command to execute after deploy
-    postDeploy: "scripts/verify.js",
+    postDeploy: "",
   },
   // Wallets to use for deployment
   wallets: {
@@ -106,9 +106,21 @@ module.exports = {
     },
     base_sepolia: {
       rpcUrl: "https://sepolia.base.org",
+      contractVerification: {
+        foundry: {
+          apiUrl: "https://api-sepolia.basescan.org/api",
+          apiKey: process.env.BASESCAN_API_KEY,
+        },
+      },
     },
     base: {
       rpcUrl: "https://base.llamarpc.com",
+      contractVerification: {
+        foundry: {
+          apiUrl: "https://api.basescan.org/api",
+          apiKey: process.env.BASESCAN_API_KEY,
+        },
+      },
     },
   },
   // Targets to deploy
