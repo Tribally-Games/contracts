@@ -5,6 +5,7 @@ on: push
 env:
   FOUNDRY_PROFILE: ci
   DEPLOYER_PRIVATE_KEY: '0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef'
+  BASESCAN_API_KEY: '0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef'
 
 jobs:
   check:
