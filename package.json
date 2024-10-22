@@ -1,5 +1,5 @@
 {
-  "name": "@tribally-games/contracts",
+  "name": "@tribally.games/contracts",
   "version": "1.0.0",
   "description": "Tribally Games smart contracts.",
   "license": "AGPL-3.0-only",
@@ -31,6 +31,7 @@
     "gemforge": "^2.13.1",
     "husky": "^8.0.2",
     "prettier": "^2.8.8",
+    "release-please": "^16.14.3",
     "shelljs": "^0.8.5",
     "solhint": "^3.3.7",
     "solidity-coverage": "^0.7.21",
