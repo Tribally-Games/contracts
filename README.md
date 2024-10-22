@@ -7,8 +7,6 @@ Core smart contracts for [Tribally Games](https://tribally.games).
 
 This is a [Diamond Standard](https://eips.ethereum.org/EIPS/eip-2535) upgradeable proxy contract managed using [Gemforge](https://gemforge.xyz/). 
 
-NPM package: `tribally.games/contracts`.
-
 _Note: the [TRIBAL token contract](https://github.com/Tribally-Games/tribal-token) is separate to this one._
 
 ## On-chain addresses
@@ -35,6 +33,8 @@ console.log(diamondProxy.baseSepolia) // address of contracts on Base Sepolia
 
 
 ## Development guide
+
+If you're working on this repo itself then these instructions are for you.
 
 Ensure the following pre-requisites are installed
 
@@ -96,7 +96,7 @@ $ pnpm build -v
 $ pnpm dep -v
 ```
 
-## Publishing releases
+### Publishing releases
 
 To create a new release of the package, first set your Github token env var:
 
