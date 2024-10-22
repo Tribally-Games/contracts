@@ -98,16 +98,27 @@ $ pnpm dep -v
 
 ## Publishing releases
 
-To create a new release of the package, do:
+To create a new release of the package, first set your Github token env var:
 
 ```shell
 $ export GITHUB_TOKEN=<use a Personal Access Token created in Github that gives access to public repos>
-$ pnpm create-release
+```
+
+Now create a release PR:
+
+```shell
+$ pnpm create-release-pr
 ```
 
 This will create a new release PR. The PR can be updated with new commits by again calling the same command.
 
-Once the PR is merged into the `master` branch the [`npm-publish`](https://github.com/Tribally-Games/contracts/blob/master/.github/workflows/npm-publish.yml) workflow will automatically run, publishing the package to NPM.
+Once the PR is merged into the `master` branch, run:
+
+```shell
+$ pnpm finalize-release
+```
+
+ This will create a release tag and cause the [`npm-publish`](https://github.com/Tribally-Games/contracts/blob/master/.github/workflows/npm-publish.yml) workflow to run, publishing the package to NPM.
 
 
 ## License
