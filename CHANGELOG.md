@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/Tribally-Games/contracts/compare/v1.0.0...v1.1.0) (2024-10-22)
+
+
+### Features
+
+* release command ([827c2f3](https://github.com/Tribally-Games/contracts/commit/827c2f339803ed118ea4a1e11b67e041eea6c534))
+
 ## 1.0.0 (2024-10-22)
 
 
