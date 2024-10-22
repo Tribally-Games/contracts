@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/Tribally-Games/contracts/compare/@tribally.games/contracts-v1.1.0...@tribally.games/contracts-v1.1.1) (2024-10-22)
+
+
+### Bug Fixes
+
+* build should checkout code at specific release tag ([5f74605](https://github.com/Tribally-Games/contracts/commit/5f746053d0563aaaac6bf0f0818300f6684a4f08))
+
 ## [1.1.0](https://github.com/Tribally-Games/contracts/compare/@tribally.games/contracts-v1.0.0...@tribally.games/contracts-v1.1.0) (2024-10-22)
 
 
