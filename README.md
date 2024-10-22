@@ -25,7 +25,7 @@ Ensure the following pre-requisites are installed
 
 ### Setup
 
-```
+```shell
 $ foundryup
 $ pnpm i
 $ pnpm bootstrap
@@ -42,40 +42,51 @@ BASESCAN_API_KEY=<your basescan api key>
 
 Run a local dev node in a separate terminal:
 
-```
+```shell
 pnpm devnet
 ```
 
 To build the code:
 
-```
+```shell
 $ pnpm build
 ```
 
 To run the tests:
 
-```
+```shell
 $ pnpm test
 ```
 
 To deploy to the local target:
 
-```
+```shell
 $ pnpm dep local
 ```
 
 To deploy to Base Sepolia:
 
-```
+```shell
 $ pnpm dep base_sepolia
 ```
 
 For verbose output simply add `-v`:
 
-```
+```shell
 $ pnpm build -v
 $ pnpm dep -v
 ```
+
+## Publishing releases
+
+To publish a new release of the package, do:
+
+```shell
+$ export GITHUB_TOKEN=<personal access token created in Github that gives access to public repos>
+$ pnpm release
+```
+
+
 
 ## License
 
