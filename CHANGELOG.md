@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/Tribally-Games/contracts/compare/@tribally.games/contracts-v1.1.1...@tribally.games/contracts-v1.1.2) (2024-10-22)
+
+
+### Bug Fixes
+
+* build secret var should be NPM_TOKEN ([9821539](https://github.com/Tribally-Games/contracts/commit/98215396d8e234c0c2bf4ba25a6e0d57d54929ca))
+
 ## [1.1.1](https://github.com/Tribally-Games/contracts/compare/@tribally.games/contracts-v1.1.0...@tribally.games/contracts-v1.1.1) (2024-10-22)
 
 
