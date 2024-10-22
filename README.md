@@ -15,6 +15,25 @@ _Note: the [TRIBAL token contract](https://github.com/Tribally-Games/tribal-toke
 
 * Base Sepolia: `0x756B16467553c68e5a8bAB9146661C07745410Cb` ([Basescan](https://sepolia.basescan.org/address/0x756B16467553c68e5a8bAB9146661C07745410Cb), [Louper](https://louper.dev/diamond/0x756B16467553c68e5a8bAB9146661C07745410Cb?network=baseSepolia))
 
+## Usage guide
+
+Install the NPM package:
+
+* NPM: `npm install @tribally.games/contracts`
+* Yarn: `yarn add @tribally.games/contracts`
+* PNPM: `pnpm add @tribally.games/contracts`
+* Bun: `bun add @triballuy.games/contracts`
+
+Use it within your code:
+
+```js
+const { abi, diamondProxy } = require('@tribally.games/contracts');
+
+console.log(abi) // JSON ABI of the diamond proxy
+console.log(diamondProxy.baseSepolia) // address of contracts on Base Sepolia
+```
+
+
 ## Development guide
 
 Ensure the following pre-requisites are installed
@@ -79,13 +98,16 @@ $ pnpm dep -v
 
 ## Publishing releases
 
-To publish a new release of the package, do:
+To create a new release of the package, do:
 
 ```shell
-$ export GITHUB_TOKEN=<personal access token created in Github that gives access to public repos>
-$ pnpm release
+$ export GITHUB_TOKEN=<use a Personal Access Token created in Github that gives access to public repos>
+$ pnpm create-release
 ```
 
+This will create a new release PR. The PR can be updated with new commits by again calling the same command.
+
+Once the PR is merged into the `master` branch the [`npm-publish`](https://github.com/Tribally-Games/contracts/blob/master/.github/workflows/npm-publish.yml) workflow will automatically run, publishing the package to NPM.
 
 
 ## License

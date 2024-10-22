@@ -1,0 +1,51 @@
+name: Publish to NPM
+
+on:
+  release:
+    types: [created]
+
+env:
+  FOUNDRY_PROFILE: ci
+  DEPLOYER_PRIVATE_KEY: '0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef'
+  BASESCAN_API_KEY: '0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    # https://docs.github.com/en/actions/reference/authentication-in-a-workflow
+    permissions:
+      id-token: write
+      packages: read
+      contents: read
+      security-events: write
+    container:
+      image: ghcr.io/tribally-games/contracts-builder:latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 8
+    
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: echo "/root/.cargo/bin:/root/.foundry/bin:/root/.bun/bin" >> $GITHUB_PATH
+      - run: svm install 0.8.24 && svm use 0.8.24
+      # disable safe.directory system to avoid forge install error
+      - run: git config --global --add safe.directory '*' 
+      # install deps
+      - run: forge install          
+      - run: pnpm i
+      - run: pnpm bootstrap
+
+      - name: Compile
+        run: pnpm build
+        id: build
+
+      - run: pnpm publish --access public --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
