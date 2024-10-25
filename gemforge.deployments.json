@@ -162,5 +162,72 @@
         }
       }
     ]
+  },
+  "base": {
+    "chainId": 8453,
+    "contracts": [
+      {
+        "name": "DiamondProxy",
+        "fullyQualifiedName": "DiamondProxy.sol:DiamondProxy",
+        "sender": "0x82180b6EF1245318E631E18B391CD7b4a0C216B0",
+        "txHash": "0x2f157892d2607df5a0da7c732a5e5b4d0ac6be6affc9e59124d34c403a6d2b1f",
+        "onChain": {
+          "address": "0x756B16467553c68e5a8bAB9146661C07745410Cb",
+          "constructorArgs": [
+            "0x82180b6EF1245318E631E18B391CD7b4a0C216B0"
+          ]
+        }
+      },
+      {
+        "name": "ConfigFacet",
+        "fullyQualifiedName": "ConfigFacet.sol:ConfigFacet",
+        "sender": "0x82180b6EF1245318E631E18B391CD7b4a0C216B0",
+        "txHash": "0x282b849ab426980df2ee8695a4d529369a83218f36c16b4bb7928d4feb02ac7c",
+        "onChain": {
+          "address": "0xA8BF9F6F6dD63473CDf336201B13564d13fad9F1",
+          "constructorArgs": []
+        }
+      },
+      {
+        "name": "GatewayFacet",
+        "fullyQualifiedName": "GatewayFacet.sol:GatewayFacet",
+        "sender": "0x82180b6EF1245318E631E18B391CD7b4a0C216B0",
+        "txHash": "0x0513ccf18897e55d39c2ee8dfc099b22b4a0e8ba94b1caaaa503ec7d058ef7a0",
+        "onChain": {
+          "address": "0x0EC3791C4F24BD7B055da5297CD3DC93e08f05B3",
+          "constructorArgs": []
+        }
+      },
+      {
+        "name": "SigningFacet",
+        "fullyQualifiedName": "SigningFacet.sol:SigningFacet",
+        "sender": "0x82180b6EF1245318E631E18B391CD7b4a0C216B0",
+        "txHash": "0xf20b5c4c70f0e796b8c3b35b83df703208fc993665bc926b208c0f468acdbaba",
+        "onChain": {
+          "address": "0x651357589B2C5127DE1A994A9D0270029214A239",
+          "constructorArgs": []
+        }
+      },
+      {
+        "name": "StakingFacet",
+        "fullyQualifiedName": "StakingFacet.sol:StakingFacet",
+        "sender": "0x82180b6EF1245318E631E18B391CD7b4a0C216B0",
+        "txHash": "0xa82a5ebf440e22984a95b5d08f3d77131ecb72c75dcaa006a0b841f3b3645e5e",
+        "onChain": {
+          "address": "0xc60583c6f03353831eBfb192E7B77455686Ef986",
+          "constructorArgs": []
+        }
+      },
+      {
+        "name": "InitDiamond",
+        "fullyQualifiedName": "InitDiamond.sol:InitDiamond",
+        "sender": "0x82180b6EF1245318E631E18B391CD7b4a0C216B0",
+        "txHash": "0x3b91dc75bf3e9abcf8da826817a9f6f3409bbfce5eaf5f070dcdb067b65a8d21",
+        "onChain": {
+          "address": "0x6D87DB7cEa0e1ceE3958D6f1a87103224A8b554F",
+          "constructorArgs": []
+        }
+      }
+    ]
   }
 }

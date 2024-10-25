@@ -155,5 +155,20 @@ module.exports = {
       // CREATE3 salt
       create3Salt: SALT,
     },
+    base: {
+      // Network to deploy to
+      network: "base",
+      // Wallet to use for deployment
+      wallet: "deployer_wallet",
+      // Initialization function arguments
+      initArgs: [
+        // TRIBAL token - see https://github.com/Tribally-Games/tribal-token
+        "0xD55592FB0907E505C361Ef6D007424f105CcBD93", 
+        // null signer initially
+        "0x000000000000000000000000000000000000dead"
+      ],
+      // CREATE3 salt
+      create3Salt: SALT,
+    },
   },
 };

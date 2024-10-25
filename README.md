@@ -11,6 +11,7 @@ _Note: the [TRIBAL token contract](https://github.com/Tribally-Games/tribal-toke
 
 ## On-chain addresses
 
+* Base: `0x756B16467553c68e5a8bAB9146661C07745410Cb` ([Basescan](https://basescan.org/address/0x756B16467553c68e5a8bAB9146661C07745410Cb), [Louper](https://louper.dev/diamond/0x756B16467553c68e5a8bAB9146661C07745410Cb?network=base))
 * Base Sepolia: `0x756B16467553c68e5a8bAB9146661C07745410Cb` ([Basescan](https://sepolia.basescan.org/address/0x756B16467553c68e5a8bAB9146661C07745410Cb), [Louper](https://louper.dev/diamond/0x756B16467553c68e5a8bAB9146661C07745410Cb?network=baseSepolia))
 
 ## Usage guide
@@ -83,11 +84,10 @@ To deploy to the local target:
 $ pnpm dep local
 ```
 
-To deploy to Base Sepolia:
+To deploy to public networks:
 
-```shell
-$ pnpm dep base_sepolia
-```
+* Base sepolia: `pnpm dep base_sepolia`
+* Base mainnet: `pnpm dep base`
 
 For verbose output simply add `-v`:
 
