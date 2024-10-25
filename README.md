@@ -32,7 +32,6 @@ console.log(abi) // JSON ABI of the diamond proxy
 console.log(diamondProxy.baseSepolia) // address of contracts on Base Sepolia
 ```
 
-
 ## Development guide
 
 If you're working on this repo itself then these instructions are for you.
