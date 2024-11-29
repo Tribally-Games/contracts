@@ -22,6 +22,7 @@
     "build": "gemforge build",
     "dep": "gemforge deploy",
     "query": "gemforge query",
+    "verify": "gemforge verify",
     "create-release-pr": "release-please release-pr --token=$GITHUB_TOKEN --repo-url=Tribally-Games/contracts",
     "finalize-release": "release-please github-release --token=$GITHUB_TOKEN --repo-url=Tribally-Games/contracts"
   },
@@ -30,7 +31,7 @@
     "@commitlint/config-conventional": "^17.2.0",
     "@types/node": "^18.16.16",
     "dotenv": "^16.3.1",
-    "gemforge": "^2.13.1",
+    "gemforge": "^2.14.0",
     "husky": "^8.0.2",
     "prettier": "^2.8.8",
     "release-please": "^16.14.3",

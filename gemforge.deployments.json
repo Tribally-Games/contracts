@@ -70,42 +70,12 @@
     "chainId": 84532,
     "contracts": [
       {
-        "name": "DiamondCutFacet",
-        "fullyQualifiedName": "DiamondCutFacet.sol:DiamondCutFacet",
-        "sender": "0x82180b6EF1245318E631E18B391CD7b4a0C216B0",
-        "txHash": "0x63824db04a2093dc8da0602b6e25aa4c7332446fe307daf9eb36a44afae2181e",
-        "onChain": {
-          "address": "0x20A68e5046cDc0dF6eE69a2DC31c79A94A160A8b",
-          "constructorArgs": []
-        }
-      },
-      {
-        "name": "DiamondLoupeFacet",
-        "fullyQualifiedName": "DiamondLoupeFacet.sol:DiamondLoupeFacet",
-        "sender": "0x82180b6EF1245318E631E18B391CD7b4a0C216B0",
-        "txHash": "0x63824db04a2093dc8da0602b6e25aa4c7332446fe307daf9eb36a44afae2181e",
-        "onChain": {
-          "address": "0x6482808426f1FDA8cba09cE4Eb23b8251D57D287",
-          "constructorArgs": []
-        }
-      },
-      {
-        "name": "OwnershipFacet",
-        "fullyQualifiedName": "OwnershipFacet.sol:OwnershipFacet",
-        "sender": "0x82180b6EF1245318E631E18B391CD7b4a0C216B0",
-        "txHash": "0x63824db04a2093dc8da0602b6e25aa4c7332446fe307daf9eb36a44afae2181e",
-        "onChain": {
-          "address": "0x7f5E92963b238162DD80c5953075B12C9ee675e0",
-          "constructorArgs": []
-        }
-      },
-      {
         "name": "DiamondProxy",
         "fullyQualifiedName": "DiamondProxy.sol:DiamondProxy",
         "sender": "0x82180b6EF1245318E631E18B391CD7b4a0C216B0",
-        "txHash": "0x63824db04a2093dc8da0602b6e25aa4c7332446fe307daf9eb36a44afae2181e",
+        "txHash": "0xc87f8a2b8b590940ee029e010b43cd3ef95bf81a9b5a1279519e8024ca631c2a",
         "onChain": {
-          "address": "0x756B16467553c68e5a8bAB9146661C07745410Cb",
+          "address": "0x3249787E176d97298f5137A1C50CD33ae23EBd97",
           "constructorArgs": [
             "0x82180b6EF1245318E631E18B391CD7b4a0C216B0"
           ]
@@ -115,9 +85,9 @@
         "name": "ConfigFacet",
         "fullyQualifiedName": "ConfigFacet.sol:ConfigFacet",
         "sender": "0x82180b6EF1245318E631E18B391CD7b4a0C216B0",
-        "txHash": "0x2e7fd8f324852aa0232e70e25f6a324c593534d9ca20fbffc43c914df485f4dd",
+        "txHash": "0xb6b8d353193eb83c5db1cd5597d1769609db3d6b95cf0e138a91ef7f95d2f64e",
         "onChain": {
-          "address": "0xb16B2f6396185a516f1D8DD70A0E30c174559A4f",
+          "address": "0x0E168045Fa8F0c38027Af5E38c5fa3C563b90022",
           "constructorArgs": []
         }
       },
@@ -125,9 +95,9 @@
         "name": "GatewayFacet",
         "fullyQualifiedName": "GatewayFacet.sol:GatewayFacet",
         "sender": "0x82180b6EF1245318E631E18B391CD7b4a0C216B0",
-        "txHash": "0x6ebbd37666d5db2d1c0f91a578591e1030bfe9e3b358e2b736ff271fa694eafd",
+        "txHash": "0x108cc7314242eefbe4970fbe5ec110d1094f318cc8bc2a8fbb10c052463d3d10",
         "onChain": {
-          "address": "0x044Cb48DD400348Ae008Ef37E421B2Fc10d27a80",
+          "address": "0xd7f0677D273EF8086D420ca20d1eA6D475d7f36d",
           "constructorArgs": []
         }
       },
@@ -135,9 +105,9 @@
         "name": "SigningFacet",
         "fullyQualifiedName": "SigningFacet.sol:SigningFacet",
         "sender": "0x82180b6EF1245318E631E18B391CD7b4a0C216B0",
-        "txHash": "0x746f78103651b5dd0a2749f0ccd5f468f964eeed8922bce3e246f444b5512453",
+        "txHash": "0x82ee09a7171cc1091a1184fb49319c09a16f542d2b2fe9470d1dac5586bdc070",
         "onChain": {
-          "address": "0xFa5ecd7fa7aABf20beed4A6c333FD619e5a68bf4",
+          "address": "0x3edc105502448ef7683156414fc0D49d1613B28b",
           "constructorArgs": []
         }
       },
@@ -145,9 +115,9 @@
         "name": "StakingFacet",
         "fullyQualifiedName": "StakingFacet.sol:StakingFacet",
         "sender": "0x82180b6EF1245318E631E18B391CD7b4a0C216B0",
-        "txHash": "0x5330955dfa6f3e97d21a794c384882083fa03752729f744a050fa4167bf7e848",
+        "txHash": "0x7a3bdb0f89c130c76715fda2b0dea3823d2058d23de8ad10824ab72e279d0964",
         "onChain": {
-          "address": "0xa8C1fEE48Caa3AEa9723181f385715c0b8C1d648",
+          "address": "0xd6bBdB8AaDe53aF797204371FF43D8470228C921",
           "constructorArgs": []
         }
       },
@@ -155,9 +125,9 @@
         "name": "InitDiamond",
         "fullyQualifiedName": "InitDiamond.sol:InitDiamond",
         "sender": "0x82180b6EF1245318E631E18B391CD7b4a0C216B0",
-        "txHash": "0x81e7494794ff1836c5d3d07fd85b56d896856b49e76c82698d9f9ff5f5ddeee3",
+        "txHash": "0x60649600ea9f70cdb7752249864eceb428628d0d2d56f2837a67a3608163b7d9",
         "onChain": {
-          "address": "0x01aC80377d011c82b16777f8fB50F963F9A4EcFc",
+          "address": "0x28faFbb9fE7884d3E6fE98E04592C06Ee8D001C7",
           "constructorArgs": []
         }
       }
@@ -170,9 +140,9 @@
         "name": "DiamondProxy",
         "fullyQualifiedName": "DiamondProxy.sol:DiamondProxy",
         "sender": "0x82180b6EF1245318E631E18B391CD7b4a0C216B0",
-        "txHash": "0x2f157892d2607df5a0da7c732a5e5b4d0ac6be6affc9e59124d34c403a6d2b1f",
+        "txHash": "0x28d66c077d2aaf89b147f9b8df0ce62421c78acf2bb35435547af74ebd284396",
         "onChain": {
-          "address": "0x756B16467553c68e5a8bAB9146661C07745410Cb",
+          "address": "0x3249787E176d97298f5137A1C50CD33ae23EBd97",
           "constructorArgs": [
             "0x82180b6EF1245318E631E18B391CD7b4a0C216B0"
           ]
@@ -182,9 +152,9 @@
         "name": "ConfigFacet",
         "fullyQualifiedName": "ConfigFacet.sol:ConfigFacet",
         "sender": "0x82180b6EF1245318E631E18B391CD7b4a0C216B0",
-        "txHash": "0x282b849ab426980df2ee8695a4d529369a83218f36c16b4bb7928d4feb02ac7c",
+        "txHash": "0xfe27349deb1193e374548f8cec6cb18c65e6783ccb6778f2810ff2457f2e972d",
         "onChain": {
-          "address": "0xA8BF9F6F6dD63473CDf336201B13564d13fad9F1",
+          "address": "0xa852c52ffCf5764cE89294E1CC76fD7056C9Fcb2",
           "constructorArgs": []
         }
       },
@@ -192,9 +162,9 @@
         "name": "GatewayFacet",
         "fullyQualifiedName": "GatewayFacet.sol:GatewayFacet",
         "sender": "0x82180b6EF1245318E631E18B391CD7b4a0C216B0",
-        "txHash": "0x0513ccf18897e55d39c2ee8dfc099b22b4a0e8ba94b1caaaa503ec7d058ef7a0",
+        "txHash": "0xee19df46553ecaa5caa2bc7dd47a59b91eb0c9fe1d3c7fced87361b4be31b49c",
         "onChain": {
-          "address": "0x0EC3791C4F24BD7B055da5297CD3DC93e08f05B3",
+          "address": "0x5408C0224200280a6E89204fEE230aDC947Fcd0f",
           "constructorArgs": []
         }
       },
@@ -202,9 +172,9 @@
         "name": "SigningFacet",
         "fullyQualifiedName": "SigningFacet.sol:SigningFacet",
         "sender": "0x82180b6EF1245318E631E18B391CD7b4a0C216B0",
-        "txHash": "0xf20b5c4c70f0e796b8c3b35b83df703208fc993665bc926b208c0f468acdbaba",
+        "txHash": "0xcf3b0c837d6045cbe5a80125f11148946ab12f36aaf894764687971c43079c37",
         "onChain": {
-          "address": "0x651357589B2C5127DE1A994A9D0270029214A239",
+          "address": "0x126BF3683eaA49dAd1a8fD5aca9F2B128E806B19",
           "constructorArgs": []
         }
       },
@@ -212,9 +182,9 @@
         "name": "StakingFacet",
         "fullyQualifiedName": "StakingFacet.sol:StakingFacet",
         "sender": "0x82180b6EF1245318E631E18B391CD7b4a0C216B0",
-        "txHash": "0xa82a5ebf440e22984a95b5d08f3d77131ecb72c75dcaa006a0b841f3b3645e5e",
+        "txHash": "0xaae6b7068e993196a4946465e0e8b058149d2d6e62ae6df913ce17541c2de4f0",
         "onChain": {
-          "address": "0xc60583c6f03353831eBfb192E7B77455686Ef986",
+          "address": "0x15006E50f0DdD359972020C50963C6CEfe34f32E",
           "constructorArgs": []
         }
       },
@@ -222,9 +192,9 @@
         "name": "InitDiamond",
         "fullyQualifiedName": "InitDiamond.sol:InitDiamond",
         "sender": "0x82180b6EF1245318E631E18B391CD7b4a0C216B0",
-        "txHash": "0x3b91dc75bf3e9abcf8da826817a9f6f3409bbfce5eaf5f070dcdb067b65a8d21",
+        "txHash": "0xc3e4c5b85c114040eec84249be5232c5b578a05fdc717e636a2000159dd38b33",
         "onChain": {
-          "address": "0x6D87DB7cEa0e1ceE3958D6f1a87103224A8b554F",
+          "address": "0x9F80a62Af2d2985ECdB16401DfB79504462FAB4E",
           "constructorArgs": []
         }
       }

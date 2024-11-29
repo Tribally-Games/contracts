@@ -11,8 +11,8 @@ _Note: the [TRIBAL token contract](https://github.com/Tribally-Games/tribal-toke
 
 ## On-chain addresses
 
-* Base: `0x756B16467553c68e5a8bAB9146661C07745410Cb` ([Basescan](https://basescan.org/address/0x756B16467553c68e5a8bAB9146661C07745410Cb), [Louper](https://louper.dev/diamond/0x756B16467553c68e5a8bAB9146661C07745410Cb?network=base))
-* Base Sepolia: `0x756B16467553c68e5a8bAB9146661C07745410Cb` ([Basescan](https://sepolia.basescan.org/address/0x756B16467553c68e5a8bAB9146661C07745410Cb), [Louper](https://louper.dev/diamond/0x756B16467553c68e5a8bAB9146661C07745410Cb?network=baseSepolia))
+* Base: `0x3249787E176d97298f5137A1C50CD33ae23EBd97` ([Basescan](https://basescan.org/address/0x3249787E176d97298f5137A1C50CD33ae23EBd97), [Louper](https://louper.dev/diamond/0x3249787E176d97298f5137A1C50CD33ae23EBd97?network=base))
+* Base Sepolia: `0x3249787E176d97298f5137A1C50CD33ae23EBd97` ([Basescan](https://sepolia.basescan.org/address/0x3249787E176d97298f5137A1C50CD33ae23EBd97), [Louper](https://louper.dev/diamond/0x3249787E176d97298f5137A1C50CD33ae23EBd97?network=baseSepolia))
 
 ## Usage guide
 
@@ -87,6 +87,11 @@ To deploy to public networks:
 
 * Base sepolia: `pnpm dep base_sepolia`
 * Base mainnet: `pnpm dep base`
+
+Once deployed you can verify contract source-codes on Basescan using:
+
+* Base sepolia: `pnpm verify base_sepolia`
+* Base: `pnpm verify base`
 
 For verbose output simply add `-v`:
 
