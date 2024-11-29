@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/Tribally-Games/contracts/compare/@tribally.games/contracts-v1.1.2...@tribally.games/contracts-v1.2.0) (2024-10-25)
+
+
+### Features
+
+* deploy to base mainnet ([65d8cb4](https://github.com/Tribally-Games/contracts/commit/65d8cb46b9d3025ea165f88ed3b6c9126c675c1d))
+
 ## [1.1.2](https://github.com/Tribally-Games/contracts/compare/@tribally.games/contracts-v1.1.1...@tribally.games/contracts-v1.1.2) (2024-10-22)
 
 
