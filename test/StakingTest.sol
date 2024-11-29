@@ -93,6 +93,21 @@ contract StakingFacetTest is TestBaseContract {
         assertEq(amount, 100, "Invalid amount");
     }
 
+    function test_StakeDeposit_MultipleDeposits_Success() public {
+        diamond.stakeDeposit(account1, 100);
+        diamond.stakeDeposit(account1, 200);
+        diamond.stakeDeposit(account1, 300);
+
+        assertEq(400, stakingToken.balanceOf(account1));
+        assertEq(600, stakingToken.balanceOf(address(diamond)));
+        
+        uint256 day = _getCurrentDay();
+        assertEq(600, diamond.stakeGetUserTotalStaked(account1, day));
+        assertEq(600, diamond.stakeGetTotalStaked(day));
+        
+        assertEq(3, diamond.stakeGetUserDepositCount(account1));
+    }
+
     // ================================================
     // Withdraws
     // ================================================
@@ -195,6 +210,16 @@ contract StakingFacetTest is TestBaseContract {
         assertEq(amount, 50, "Invalid amount");
     }
 
+    function test_StakeWithdraw_FullBalance_Success() public {
+        diamond.stakeDeposit(account1, 100);
+        diamond.stakeWithdraw(account1, 100); // Withdraw entire balance
+
+        uint256 day = _getCurrentDay();
+        assertEq(1000, stakingToken.balanceOf(account1));
+        assertEq(0, stakingToken.balanceOf(address(diamond)));
+        assertEq(0, diamond.stakeGetUserTotalStaked(account1, day));
+    }
+
     // ================================================
     // Record Payouts
     // ================================================
@@ -252,6 +277,19 @@ contract StakingFacetTest is TestBaseContract {
         assertEq(token, address(payoutToken), "Invalid token");
         assertEq(amount, 1000, "Invalid amount");
         assertEq(currentDay, block.timestamp / 1 days, "Invalid current day");
+    }
+
+    function test_StakeRecordPayout_MultipleTokens() public {
+        ERC20Mock otherPayoutToken = new ERC20Mock();
+        otherPayoutToken.mint(address(this), 1000);
+        otherPayoutToken.approve(address(diamond), 1000);
+        
+        diamond.stakeRecordPayout(address(this), address(payoutToken), 500);
+        diamond.stakeRecordPayout(address(this), address(otherPayoutToken), 300);
+        
+        uint256 currentDay = _getCurrentDay();
+        assertEq(500, diamond.stakeGetPayoutPoolAmountAtDay(address(payoutToken), currentDay));
+        assertEq(300, diamond.stakeGetPayoutPoolAmountAtDay(address(otherPayoutToken), currentDay));
     }
 
 
@@ -340,6 +378,25 @@ contract StakingFacetTest is TestBaseContract {
         assertEq(secondClaimTime, claim.timestamp);
     }
 
+    function test_StakeClaimPayouts_MultipleClaims_SameDay() public {
+        diamond.stakeRecordPayout(address(this), address(payoutToken), 1000);
+        
+        AuthSignature memory sig1 = _computeDefaultSig(
+            abi.encodePacked(uint(300), address(payoutToken), account1),
+            block.timestamp + 10 seconds
+        );
+        diamond.stakeClaimPayouts(300, address(payoutToken), account1, sig1);
+        
+        AuthSignature memory sig2 = _computeDefaultSig(
+            abi.encodePacked(uint(200), address(payoutToken), account1),
+            block.timestamp + 10 seconds
+        );
+        diamond.stakeClaimPayouts(200, address(payoutToken), account1, sig2);
+        
+        assertEq(500, payoutToken.balanceOf(account1));
+        assertEq(500, diamond.stakeGetTotalClaimedForToken(address(payoutToken)));
+    }
+
     function test_StakeClaimPayouts_EmitsEvent() public {
         // Setup: Record a payout
         diamond.stakeRecordPayout(address(this), address(payoutToken), 1000);
@@ -407,5 +464,22 @@ contract StakingFacetTest is TestBaseContract {
         // Final check
         assertEq(diamond.stakeGetUserTotalStaked(account1, _getCurrentDay()), 0);
         assertEq(diamond.stakeGetUserTotalStaked(account2, _getCurrentDay()), 50);
+    }
+
+    function test_StakeGetUserTotalStaked_HistoricalValues() public {
+        diamond.stakeDeposit(account1, 100);
+        uint256 day1 = _getCurrentDay();
+        
+        vm.warp(block.timestamp + 1 days);
+        diamond.stakeDeposit(account1, 200);
+        uint256 day2 = _getCurrentDay();
+        
+        vm.warp(block.timestamp + 1 days);
+        diamond.stakeWithdraw(account1, 150);
+        uint256 day3 = _getCurrentDay();
+        
+        assertEq(100, diamond.stakeGetUserTotalStaked(account1, day1));
+        assertEq(300, diamond.stakeGetUserTotalStaked(account1, day2));
+        assertEq(150, diamond.stakeGetUserTotalStaked(account1, day3));
     }
 }
