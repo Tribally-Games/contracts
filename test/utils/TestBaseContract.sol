@@ -72,4 +72,8 @@ abstract contract TestBaseContract is Test {
       deadline: _deadline
     });
   }  
+
+  function _getCurrentDay() internal view returns (uint256) {
+    return block.timestamp / 1 days;
+  }
 }

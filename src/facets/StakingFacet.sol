@@ -33,24 +33,23 @@ contract StakingFacet {
      */
     event StakePayoutRecorded(address token, uint256 amount, uint256 day);
 
+
     /** @dev Deposits stake for a user
      * @param user Address of the user depositing stake
      * @param amount Amount of tokens to deposit
      */
     function stakeDeposit(address user, uint256 amount) external {
         if (amount == 0) {
-          revert LibErrors.AmountMustBeGreaterThanZero();
+            revert LibErrors.AmountMustBeGreaterThanZero();
         }
 
         AppStorage storage s = LibAppStorage.diamondStorage();
 
         if (!IERC20(s.stakingToken).transferFrom(user, address(this), amount)) {
-          revert LibErrors.TransferFailed();
+            revert LibErrors.TransferFailed();
         }
 
-        s.stakingUserDeposits[user].push(Transaction(block.timestamp, amount));
-        s.stakingUserTotalStaked[user] += amount;
-        s.stakingTotalStaked += amount;
+        _userDeposit(user, amount);
 
         emit StakeDeposited(user, amount);
     }
@@ -61,22 +60,16 @@ contract StakingFacet {
      */
     function stakeWithdraw(address user, uint256 amount) external {
         if (amount == 0) {
-          revert LibErrors.AmountMustBeGreaterThanZero();
+            revert LibErrors.AmountMustBeGreaterThanZero();
         }
 
         AppStorage storage s = LibAppStorage.diamondStorage();
 
-        if (s.stakingUserTotalStaked[user] < amount) {
-          revert LibErrors.InsufficientBalanceError();
-        }
+        _userWithdraw(user, amount);
 
         if (!IERC20(s.stakingToken).transfer(user, amount)) {
-          revert LibErrors.TransferFailed();
+            revert LibErrors.TransferFailed();
         }
-
-        s.stakingUserWithdrawals[user].push(Transaction(block.timestamp, amount));
-        s.stakingUserTotalStaked[user] -= amount;
-        s.stakingTotalStaked -= amount;
 
         emit StakeWithdrawn(user, amount);
     }
@@ -101,13 +94,11 @@ contract StakingFacet {
             abi.encodePacked(amount, claimToken, user)
         );
 
+        _userClaim(user, claimToken, amount);
+
         if (!IERC20(claimToken).transfer(user, amount)) {
           revert LibErrors.TransferFailed();
         }
-
-        s.stakingUserClaims[user][claimToken].push(Transaction(block.timestamp, amount));
-        s.stakingUserLastClaimTime[user][claimToken] = block.timestamp;
-        s.stakingTotalClaimed[claimToken] += amount;
 
         emit StakePayoutClaimed(user, claimToken, amount);
     }
@@ -128,35 +119,53 @@ contract StakingFacet {
 
         AppStorage storage s = LibAppStorage.diamondStorage();
 
-        uint256 currentDay = block.timestamp / 1 days;
-        uint256 payoutPoolLength = s.stakingPayoutPool[token].length;
+        uint256 currentDay = _getCurrentDay();
+        uint256 payoutPoolLength = s.stakingPayoutPools[token].length;
         
-        if (payoutPoolLength > 0 && s.stakingPayoutPool[token][payoutPoolLength - 1].timestamp / 1 days == currentDay) {
+        if (payoutPoolLength > 0 && s.stakingPayoutPools[token][payoutPoolLength - 1].timestamp == currentDay) {
             // Add to existing payout for the current day
-            s.stakingPayoutPool[token][payoutPoolLength - 1].amount += amount;
+            s.stakingPayoutPools[token][payoutPoolLength - 1].amount += amount;
         } else {
             // Create a new payout entry for the current day
-            s.stakingPayoutPool[token].push(Transaction(block.timestamp, amount));
+            s.stakingPayoutPools[token].push(Transaction(currentDay, amount));
         }
 
         emit StakePayoutRecorded(token, amount, currentDay);
     }
 
-    /** @dev Gets the total amount staked across all users.
+    /** @dev Gets the total amount staked across all users for a specific day.
+     * @param day The day to query (timestamp / 1 days)
      * @return Total amount staked.
      */
-    function stakeGetTotalStaked() external view returns (uint256) {
+    function stakeGetTotalStaked(uint256 day) external view returns (uint256) {
         AppStorage storage s = LibAppStorage.diamondStorage();
-        return s.stakingTotalStaked;
+        uint256 length = s.stakingTotalStaked.length;
+        while (length > 0 && s.stakingTotalStaked[length - 1].timestamp > day) {
+            length--;
+        }
+        if (length > 0) {
+            return s.stakingTotalStaked[length - 1].amount;
+        } else {
+            return 0;
+        }
     }
 
-    /** @dev Gets the total amount staked by a user
+    /** @dev Gets the total amount staked by a user for a specific day.
      * @param user Address of the user
+     * @param day The day to query (timestamp / 1 days)
      * @return Total amount staked by the user
      */
-    function stakeGetUserTotalStaked(address user) external view returns (uint256) {
+    function stakeGetUserTotalStaked(address user, uint256 day) external view returns (uint256) {
         AppStorage storage s = LibAppStorage.diamondStorage();
-        return s.stakingUserTotalStaked[user];
+        uint256 length = s.stakingUserTotalStaked[user].length;
+        while (length > 0 && s.stakingUserTotalStaked[user][length - 1].timestamp > day) {
+            length--;
+        }
+        if (length > 0) {
+            return s.stakingUserTotalStaked[user][length - 1].amount;
+        } else {
+            return 0;
+        }
     }
 
     /** @dev Gets the number of stake deposits made by a user
@@ -168,6 +177,26 @@ contract StakingFacet {
         return s.stakingUserDeposits[user].length;
     }
 
+    /** @dev Gets all stake deposits made by a user
+     * @param user Address of the user
+     * @return Array of Transaction structs representing deposits
+     */
+    function stakeGetUserDepositList(address user) external view returns (Transaction[] memory) {
+        AppStorage storage s = LibAppStorage.diamondStorage();
+        return s.stakingUserDeposits[user];
+    }
+
+
+    /** @dev Gets a specific stake deposit made by a user
+     * @param user Address of the user
+     * @param index Index in the list
+     * @return Transaction struct at the specified index
+     */
+    function stakeGetUserDepositAt(address user, uint256 index) external view returns (Transaction memory) {
+        AppStorage storage s = LibAppStorage.diamondStorage();
+        return s.stakingUserDeposits[user][index];
+    }
+
     /** @dev Gets the number of stake withdrawals made by a user
      * @param user Address of the user
      * @return Number of withdrawals
@@ -175,6 +204,25 @@ contract StakingFacet {
     function stakeGetUserWithdrawalCount(address user) external view returns (uint256) {
         AppStorage storage s = LibAppStorage.diamondStorage();
         return s.stakingUserWithdrawals[user].length;
+    }
+
+    /** @dev Gets all stake withdrawals made by a user
+     * @param user Address of the user
+     * @return Array of Transaction structs representing withdrawals
+     */
+    function stakeGetUserWithdrawalList(address user) external view returns (Transaction[] memory) {
+        AppStorage storage s = LibAppStorage.diamondStorage();
+        return s.stakingUserWithdrawals[user];
+    }    
+
+    /** @dev Gets a specific stake withdrawal made by a user
+     * @param user Address of the user
+     * @param index Index in the list
+     * @return Transaction struct at the specified index
+     */
+    function stakeGetUserWithdrawalAt(address user, uint256 index) external view returns (Transaction memory) {
+        AppStorage storage s = LibAppStorage.diamondStorage();
+        return s.stakingUserWithdrawals[user][index];
     }
 
     /** @dev Gets the number of stake claims made by a user for a specific token
@@ -187,32 +235,25 @@ contract StakingFacet {
         return s.stakingUserClaims[user][token].length;
     }
 
-    /** @dev Gets all stake deposits made by a user
-     * @param user Address of the user
-     * @return Array of Transaction structs representing deposits
-     */
-    function stakeGetUserDeposits(address user) external view returns (Transaction[] memory) {
-        AppStorage storage s = LibAppStorage.diamondStorage();
-        return s.stakingUserDeposits[user];
-    }
-
-    /** @dev Gets all stake withdrawals made by a user
-     * @param user Address of the user
-     * @return Array of Transaction structs representing withdrawals
-     */
-    function stakeGetUserWithdrawals(address user) external view returns (Transaction[] memory) {
-        AppStorage storage s = LibAppStorage.diamondStorage();
-        return s.stakingUserWithdrawals[user];
-    }
-
     /** @dev Gets all stake claims made by a user for a specific token
      * @param user Address of the user
      * @param token Address of the token
      * @return Array of Transaction structs representing claims
      */
-    function stakeGetUserClaims(address user, address token) external view returns (Transaction[] memory) {
+    function stakeGetUserClaimList(address user, address token) external view returns (Transaction[] memory) {
         AppStorage storage s = LibAppStorage.diamondStorage();
         return s.stakingUserClaims[user][token];
+    }
+
+    /** @dev Gets a specific stake claim made by a user for a specific token
+     * @param user Address of the user
+     * @param token Address of the token
+     * @param index Index in the list
+     * @return Transaction struct at the specified index
+     */
+    function stakeGetUserClaimAt(address user, address token, uint256 index) external view returns (Transaction memory) {
+        AppStorage storage s = LibAppStorage.diamondStorage();
+        return s.stakingUserClaims[user][token][index];
     }
 
     /** @dev Gets the timestamp of the last stake claim made by a user for a specific token
@@ -222,7 +263,12 @@ contract StakingFacet {
      */
     function stakeGetLastClaimTime(address user, address token) external view returns (uint256) {
         AppStorage storage s = LibAppStorage.diamondStorage();
-        return s.stakingUserLastClaimTime[user][token];
+        uint256 length = s.stakingUserClaims[user][token].length;
+        if (length > 0) {
+            return s.stakingUserClaims[user][token][length - 1].timestamp;
+        } else {
+            return 0;
+        }
     }
 
     /** @dev Gets the stake payout pool amount for a specific token on a given day
@@ -230,13 +276,14 @@ contract StakingFacet {
      * @param day The day to query (timestamp / 1 days)
      * @return Amount in the payout pool for the specified day
      */
-    function stakeGetDailyPayoutPoolAmount(address token, uint256 day) external view returns (uint256) {
+    function stakeGetPayoutPoolAmountAtDay(address token, uint256 day) external view returns (uint256) {
         AppStorage storage s = LibAppStorage.diamondStorage();
-        uint256 payoutPoolLength = s.stakingPayoutPool[token].length;
-        for (uint256 i = 0; i < payoutPoolLength; i++) {
-            if (s.stakingPayoutPool[token][i].timestamp / 1 days == day) {
-                return s.stakingPayoutPool[token][i].amount;
-            }
+        uint256 payoutPoolLength = s.stakingPayoutPools[token].length;
+        while (payoutPoolLength > 0 && s.stakingPayoutPools[token][payoutPoolLength - 1].timestamp > day) {
+            payoutPoolLength--;
+        }
+        if (payoutPoolLength > 0) {
+            return s.stakingPayoutPools[token][payoutPoolLength - 1].amount;
         }
         return 0;
     }
@@ -248,5 +295,61 @@ contract StakingFacet {
     function stakeGetTotalClaimedForToken(address token) external view returns (uint256) {
         AppStorage storage s = LibAppStorage.diamondStorage();
         return s.stakingTotalClaimed[token];
+    }
+
+    /// PRIVATE FUNCTIONS ///   
+
+    /** @dev Gets the current day number from timestamp
+     * @return Current day number
+     */
+    function _getCurrentDay() private view returns (uint256) {
+        return block.timestamp / 1 days;
+    }
+
+
+    function _userDeposit(address user, uint256 amount) private {
+        AppStorage storage s = LibAppStorage.diamondStorage();
+
+        uint256 currentDay = _getCurrentDay();
+
+        s.stakingUserDeposits[user].push(Transaction(block.timestamp, amount));
+
+        uint256 userTotalStaked = 0;
+        if (s.stakingUserTotalStaked[user].length > 0) {
+            userTotalStaked = s.stakingUserTotalStaked[user][s.stakingUserTotalStaked[user].length - 1].amount;
+        }
+        s.stakingUserTotalStaked[user].push(Transaction(currentDay, userTotalStaked + amount));
+
+        uint256 totalStaked = 0;
+        if (s.stakingTotalStaked.length > 0) {
+            totalStaked = s.stakingTotalStaked[s.stakingTotalStaked.length - 1].amount;
+        }
+        s.stakingTotalStaked.push(Transaction(currentDay, totalStaked + amount));
+    }
+
+
+    function _userWithdraw(address user, uint256 amount) private {
+        AppStorage storage s = LibAppStorage.diamondStorage();
+
+        uint256 currentDay = _getCurrentDay();
+
+        s.stakingUserWithdrawals[user].push(Transaction(block.timestamp, amount));
+
+        uint256 userTotalStaked = s.stakingUserTotalStaked[user][s.stakingUserTotalStaked[user].length - 1].amount;
+        if (userTotalStaked < amount) {
+            revert LibErrors.InsufficientBalanceError();
+        }
+        s.stakingUserTotalStaked[user].push(Transaction(currentDay, userTotalStaked - amount));
+
+        uint256 totalStaked = s.stakingTotalStaked[s.stakingTotalStaked.length - 1].amount;
+        s.stakingTotalStaked.push(Transaction(currentDay, totalStaked - amount));
+    }
+
+
+    function _userClaim(address user, address claimToken, uint256 amount) private {
+        AppStorage storage s = LibAppStorage.diamondStorage();
+
+        s.stakingUserClaims[user][claimToken].push(Transaction(block.timestamp, amount));
+        s.stakingTotalClaimed[claimToken] += amount;
     }
 }
