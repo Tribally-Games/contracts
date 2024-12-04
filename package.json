@@ -6,7 +6,8 @@
   "main": "index.js",
   "files": [
     "src/",
-    "src/generated/abi.json",
+    "src/generated/*.json",
+    "src/generated/*.sol",
     "out/",
     "README.md",
     "LICENSE.md",
