@@ -314,17 +314,28 @@ contract StakingFacet {
 
         s.stakingUserDeposits[user].push(Transaction(block.timestamp, amount));
 
-        uint256 userTotalStaked = 0;
         if (s.stakingUserTotalStaked[user].length > 0) {
-            userTotalStaked = s.stakingUserTotalStaked[user][s.stakingUserTotalStaked[user].length - 1].amount;
-        }
-        s.stakingUserTotalStaked[user].push(Transaction(currentDay, userTotalStaked + amount));
+            Transaction storage lastUserTotalStaked = s.stakingUserTotalStaked[user][s.stakingUserTotalStaked[user].length - 1];
 
-        uint256 totalStaked = 0;
-        if (s.stakingTotalStaked.length > 0) {
-            totalStaked = s.stakingTotalStaked[s.stakingTotalStaked.length - 1].amount;
+            if (lastUserTotalStaked.timestamp == currentDay) {
+                lastUserTotalStaked.amount += amount;
+            } else {
+                s.stakingUserTotalStaked[user].push(Transaction(currentDay, lastUserTotalStaked.amount + amount));
+            }
+        } else {
+            s.stakingUserTotalStaked[user].push(Transaction(currentDay, amount));
         }
-        s.stakingTotalStaked.push(Transaction(currentDay, totalStaked + amount));
+
+        if (s.stakingTotalStaked.length > 0) {
+            Transaction storage lastTotalStaked = s.stakingTotalStaked[s.stakingTotalStaked.length - 1];
+            if (lastTotalStaked.timestamp == currentDay) {
+                lastTotalStaked.amount += amount;
+            } else {
+                s.stakingTotalStaked.push(Transaction(currentDay, lastTotalStaked.amount + amount));
+            }
+        } else {
+            s.stakingTotalStaked.push(Transaction(currentDay, amount));
+        }
     }
 
 

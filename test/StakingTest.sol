@@ -18,19 +18,19 @@ contract StakingFacetTest is TestBaseContract {
         super.setUp();
 
         stakingToken = new ERC20Mock();
-        stakingToken.mint(account1, 1000);
-        stakingToken.mint(account2, 1000);
+        stakingToken.mint(account1, 5 ether);
+        stakingToken.mint(account2, 5 ether);
 
         vm.prank(account1);
-        stakingToken.approve(address(diamond), 1000);
+        stakingToken.approve(address(diamond), 5 ether);
 
         vm.prank(account2);
-        stakingToken.approve(address(diamond), 1000);
+        stakingToken.approve(address(diamond), 5 ether);
 
         // Create and set up a new token for payouts
         payoutToken = new ERC20Mock();
-        payoutToken.mint(address(this), 1000);
-        payoutToken.approve(address(diamond), 1000);
+        payoutToken.mint(address(this), 5 ether);
+        payoutToken.approve(address(diamond), 5 ether);
 
         // set staking token
         vm.prank(owner);
@@ -48,30 +48,30 @@ contract StakingFacetTest is TestBaseContract {
 
     function test_StakeDeposit_FailsIfNotEnoughBalance() public {
         vm.prank(account1);
-        stakingToken.approve(address(diamond), 1001);
+        stakingToken.approve(address(diamond), 6 ether);
 
-        vm.expectRevert(abi.encodeWithSelector(IERC20Errors.ERC20InsufficientBalance.selector, account1, 1000, 1001));
-        diamond.stakeDeposit(account1, 1001);
+        vm.expectRevert(abi.encodeWithSelector(IERC20Errors.ERC20InsufficientBalance.selector, account1, 5 ether, 6 ether));
+        diamond.stakeDeposit(account1, 6 ether);
     }
 
     function test_StakeDeposit_Success() public {
-        diamond.stakeDeposit(account1, 100);
+        diamond.stakeDeposit(account1, 1.2 ether);
 
-        assertEq(900, stakingToken.balanceOf(account1));
-        assertEq(100, stakingToken.balanceOf(address(diamond)));
+        assertEq(3.8 ether, stakingToken.balanceOf(account1));
+        assertEq(1.2 ether, stakingToken.balanceOf(address(diamond)));
         uint256 day = _getCurrentDay();
-        assertEq(100, diamond.stakeGetUserTotalStaked(account1, day));
-        assertEq(100, diamond.stakeGetTotalStaked(day));
+        assertEq(1.2 ether, diamond.stakeGetUserTotalStaked(account1, day));
+        assertEq(1.2 ether, diamond.stakeGetTotalStaked(day));
         
         assertEq(1, diamond.stakeGetUserDepositCount(account1));
 
         Transaction[] memory deposits = diamond.stakeGetUserDepositList(account1);
         assertEq(1, deposits.length);
-        assertEq(100, deposits[0].amount);
+        assertEq(1.2 ether, deposits[0].amount);
         assertEq(block.timestamp, deposits[0].timestamp);
 
         Transaction memory deposit = diamond.stakeGetUserDepositAt(account1, 0);
-        assertEq(100, deposit.amount);
+        assertEq(1.2 ether, deposit.amount);
         assertEq(block.timestamp, deposit.timestamp);
     }
 
@@ -94,16 +94,16 @@ contract StakingFacetTest is TestBaseContract {
     }
 
     function test_StakeDeposit_MultipleDeposits_Success() public {
-        diamond.stakeDeposit(account1, 100);
-        diamond.stakeDeposit(account1, 200);
-        diamond.stakeDeposit(account1, 300);
+        diamond.stakeDeposit(account1, 1 ether);
+        diamond.stakeDeposit(account1, 1.2 ether);
+        diamond.stakeDeposit(account1, 1.3 ether);
 
-        assertEq(400, stakingToken.balanceOf(account1));
-        assertEq(600, stakingToken.balanceOf(address(diamond)));
+        assertEq(1.5 ether, stakingToken.balanceOf(account1));
+        assertEq(3.5 ether, stakingToken.balanceOf(address(diamond)));
         
         uint256 day = _getCurrentDay();
-        assertEq(600, diamond.stakeGetUserTotalStaked(account1, day));
-        assertEq(600, diamond.stakeGetTotalStaked(day));
+        assertEq(3.5 ether, diamond.stakeGetUserTotalStaked(account1, day));
+        assertEq(3.5 ether, diamond.stakeGetTotalStaked(day));
         
         assertEq(3, diamond.stakeGetUserDepositCount(account1));
     }
@@ -125,68 +125,68 @@ contract StakingFacetTest is TestBaseContract {
     }
 
     function test_StakeWithdraw_Success() public {
-        diamond.stakeDeposit(account1, 100);
-        diamond.stakeWithdraw(account1, 50);
+        diamond.stakeDeposit(account1, 1 ether);
+        diamond.stakeWithdraw(account1, 0.5 ether);
 
         uint256 day = _getCurrentDay();
 
-        assertEq(950, stakingToken.balanceOf(account1));
-        assertEq(50, stakingToken.balanceOf(address(diamond)));
+        assertEq(4.5 ether, stakingToken.balanceOf(account1));
+        assertEq(0.5 ether, stakingToken.balanceOf(address(diamond)));
 
-        assertEq(50, diamond.stakeGetUserTotalStaked(account1, day));
-        assertEq(50, diamond.stakeGetTotalStaked(day));
+        assertEq(0.5 ether, diamond.stakeGetUserTotalStaked(account1, day));
+        assertEq(0.5 ether, diamond.stakeGetTotalStaked(day));
 
         assertEq(1, diamond.stakeGetUserWithdrawalCount(account1));
 
         Transaction[] memory withdrawals = diamond.stakeGetUserWithdrawalList(account1);
         assertEq(1, withdrawals.length);
-        assertEq(50, withdrawals[0].amount);
+        assertEq(0.5 ether, withdrawals[0].amount);
         assertEq(block.timestamp, withdrawals[0].timestamp);
 
         Transaction memory withdrawal = diamond.stakeGetUserWithdrawalAt(account1, 0);
-        assertEq(50, withdrawal.amount);
+        assertEq(0.5 ether, withdrawal.amount);
         assertEq(block.timestamp, withdrawal.timestamp);
     }
 
     function test_StakeMultipleWithdrawalsLater_Success() public {
-        diamond.stakeDeposit(account1, 100);
+        diamond.stakeDeposit(account1, 1 ether);
 
         vm.warp(block.timestamp + 1 days);
         uint w1Timestamp = block.timestamp;
 
-        diamond.stakeWithdraw(account1, 50);
+        diamond.stakeWithdraw(account1, 0.5 ether);
 
         vm.warp(block.timestamp + 1 days);
         uint w2Timestamp = block.timestamp;
 
-        diamond.stakeWithdraw(account1, 25);
+        diamond.stakeWithdraw(account1, 0.25 ether);
 
         uint256 firstDay = _getCurrentDay() - 1;
         uint256 secondDay = firstDay + 1;
 
-        assertEq(975, stakingToken.balanceOf(account1));
-        assertEq(25, stakingToken.balanceOf(address(diamond)));
+        assertEq(4.75 ether, stakingToken.balanceOf(account1));
+        assertEq(0.25 ether, stakingToken.balanceOf(address(diamond)));
 
-        assertEq(50, diamond.stakeGetUserTotalStaked(account1, firstDay));
-        assertEq(50, diamond.stakeGetTotalStaked(firstDay));
+        assertEq(0.5 ether, diamond.stakeGetUserTotalStaked(account1, firstDay));
+        assertEq(0.5 ether, diamond.stakeGetTotalStaked(firstDay));
 
-        assertEq(25, diamond.stakeGetUserTotalStaked(account1, secondDay));
-        assertEq(25, diamond.stakeGetTotalStaked(secondDay));
+        assertEq(0.25 ether, diamond.stakeGetUserTotalStaked(account1, secondDay));
+        assertEq(0.25 ether, diamond.stakeGetTotalStaked(secondDay));
 
         assertEq(2, diamond.stakeGetUserWithdrawalCount(account1));
 
         Transaction[] memory withdrawals = diamond.stakeGetUserWithdrawalList(account1);
         assertEq(2, withdrawals.length);
-        assertEq(50, withdrawals[0].amount);
+        assertEq(0.5 ether, withdrawals[0].amount);
         assertEq(w1Timestamp, withdrawals[0].timestamp);
-        assertEq(25, withdrawals[1].amount);
+        assertEq(0.25 ether, withdrawals[1].amount);
         assertEq(w2Timestamp, withdrawals[1].timestamp);
 
         Transaction memory withdrawal = diamond.stakeGetUserWithdrawalAt(account1, 0);
-        assertEq(50, withdrawal.amount);
+        assertEq(0.5 ether, withdrawal.amount);
         assertEq(w1Timestamp, withdrawal.timestamp);
         withdrawal = diamond.stakeGetUserWithdrawalAt(account1, 1);
-        assertEq(25, withdrawal.amount);
+        assertEq(0.25 ether, withdrawal.amount);
         assertEq(w2Timestamp, withdrawal.timestamp);
     }
 
@@ -215,7 +215,7 @@ contract StakingFacetTest is TestBaseContract {
         diamond.stakeWithdraw(account1, 100); // Withdraw entire balance
 
         uint256 day = _getCurrentDay();
-        assertEq(1000, stakingToken.balanceOf(account1));
+        assertEq(5 ether, stakingToken.balanceOf(account1));
         assertEq(0, stakingToken.balanceOf(address(diamond)));
         assertEq(0, diamond.stakeGetUserTotalStaked(account1, day));
     }
