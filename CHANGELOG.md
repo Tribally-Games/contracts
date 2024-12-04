@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/Tribally-Games/contracts/compare/@tribally.games/contracts-v1.3.0...@tribally.games/contracts-v1.3.1) (2024-12-04)
+
+
+### Bug Fixes
+
+* export generated folder ([8325222](https://github.com/Tribally-Games/contracts/commit/832522238a9834df6e59314d78300c642937f834))
+
 ## [1.3.0](https://github.com/Tribally-Games/contracts/compare/@tribally.games/contracts-v1.2.0...@tribally.games/contracts-v1.3.0) (2024-11-29)
 
 
