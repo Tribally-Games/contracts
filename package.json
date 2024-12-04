@@ -6,6 +6,7 @@
   "main": "index.js",
   "files": [
     "src/",
+    "src/generated/abi.json",
     "out/",
     "README.md",
     "LICENSE.md",
