@@ -31,12 +31,7 @@ struct AppStorage {
      */
     address signer;
 
-    /**
-     * @dev A user's locked balance inside the gateway.
-     *
-     * Depositing into the gateway increases this balance. Withdrawing from the gateway decreases it.
-     */
-    mapping(address => uint) locked;    
+    mapping(address => uint) DEPRECATED_locked;    
 
     /**
      * @dev The ERC20 token used for staking
@@ -83,6 +78,11 @@ struct AppStorage {
      */
     mapping(address => mapping(address => Transaction[])) stakingUserClaims;
 
+
+    /**
+     * @dev The amount of tokens in the gateway pool.
+     */
+    uint gatewayPoolBalance;
 }
 
 
