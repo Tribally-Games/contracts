@@ -13,7 +13,7 @@ library LibErrors {
   error CallerMustBeAdminError();
 
   /**
-  * @dev Caller does not have enough balance to withdraw.
+  * @dev There is not have enough balance.
   */
   error InsufficientBalanceError();
 

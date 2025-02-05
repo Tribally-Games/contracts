@@ -18,6 +18,7 @@ contract GatewayTest is TestBaseContract {
   }
 
   function test_Deposit_FailsIfNotEnoughBalance() public {
+    vm.prank(account1);
     vm.expectRevert(abi.encodeWithSelector(IERC20Errors.ERC20InsufficientBalance.selector, account1, 100, 101));
     diamond.deposit(account1, 101);
   }
@@ -26,21 +27,24 @@ contract GatewayTest is TestBaseContract {
     vm.prank(account1);
     tribalToken.approve(address(diamond), 99);
 
+    vm.prank(account1);
     vm.expectRevert(abi.encodeWithSelector(IERC20Errors.ERC20InsufficientAllowance.selector, address(diamond), 99, 100));
     diamond.deposit(account1, 100);
   }
 
   function test_Deposit_Success_TransfersTokens() public {
+    vm.prank(account1);
     diamond.deposit(account1, 100);
 
     assertEq(0, tribalToken.balanceOf(account1));
     assertEq(100, tribalToken.balanceOf(address(diamond)));
-    assertEq(100, diamond.locked(account1));
+    assertEq(100, diamond.gatewayPoolBalance());
   }
 
   function test_Deposit_Success_EmitsEvent() public {
     vm.recordLogs();
 
+    vm.prank(account1);
     diamond.deposit(account1, 100);
 
     Vm.Log[] memory entries = vm.getRecordedLogs();
@@ -56,12 +60,49 @@ contract GatewayTest is TestBaseContract {
     assertEq(amount, 100, "Invalid amount");
   }
 
+  function test_Deposit_Success_OnBehalfOfOtherUser() public {
+    vm.prank(account2);
+    tribalToken.approve(address(diamond), 100);
+    tribalToken.mint(account2, 100);
+
+    vm.prank(account2);
+    diamond.deposit(account1, 100);
+
+    assertEq(0, tribalToken.balanceOf(account2));
+    assertEq(100, tribalToken.balanceOf(address(diamond)));
+    assertEq(100, diamond.gatewayPoolBalance());
+  }
+
+  function test_Deposit_Success_NullAddressUser() public {
+    vm.recordLogs();
+
+    vm.prank(account1);
+    diamond.deposit(address(0), 100);
+
+    assertEq(0, tribalToken.balanceOf(account1));
+    assertEq(100, tribalToken.balanceOf(address(diamond)));
+    assertEq(100, diamond.gatewayPoolBalance());
+
+    Vm.Log[] memory entries = vm.getRecordedLogs();
+
+    assertEq(entries.length, 2, "Invalid entry count");
+    assertEq(
+        entries[1].topics[0],
+        keccak256("Deposit(address,uint256)"),
+        "Invalid event signature"
+    );
+    (address user, uint amount) = abi.decode(entries[1].data, (address,uint256));
+    assertEq(user, address(0), "Invalid user");
+    assertEq(amount, 100, "Invalid amount");
+  }
+
   function _setupDeposit() internal {
+    vm.prank(account1);
     diamond.deposit(account1, 100);
 
     assertEq(0, tribalToken.balanceOf(account1));
     assertEq(100, tribalToken.balanceOf(address(diamond)));
-    assertEq(100, diamond.locked(account1));
+    assertEq(100, diamond.gatewayPoolBalance());
   }
 
   function test_Withdraw_Fails_IfBadSignature() public {
@@ -136,7 +177,7 @@ contract GatewayTest is TestBaseContract {
 
     assertEq(1, tribalToken.balanceOf(account1));
     assertEq(99, tribalToken.balanceOf(address(diamond)));
-    assertEq(99, diamond.locked(account1));
+    assertEq(99, diamond.gatewayPoolBalance());
   }
 
   function test_Withdraw_Succeeds_EmitsEvent() public {
@@ -176,6 +217,7 @@ contract GatewayTest is TestBaseContract {
 
     assertEq(1, tribalToken.balanceOf(account1));
     assertEq(99, tribalToken.balanceOf(address(diamond)));
-    assertEq(99, diamond.locked(account1));
+    assertEq(99, diamond.gatewayPoolBalance());
   }
+
 }
