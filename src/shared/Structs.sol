@@ -13,7 +13,3 @@ struct Transaction {
     uint256 amount;
 }
 
-struct StakeMultiplierCurve {
-    uint64 coefficient;
-    uint64 coefficientScale;
-}

@@ -3,6 +3,11 @@ pragma solidity 0.8.24;
 
 library LibErrors {
   /**
+   * @dev The inputs are invalid.
+   */
+  error InvalidInputs();
+
+  /**
    * @dev The signer address is invalid.
    */
   error InvalidSignerError();

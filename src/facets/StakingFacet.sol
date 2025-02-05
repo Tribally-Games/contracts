@@ -1,7 +1,7 @@
 pragma solidity ^0.8.24;
 
 import { IERC20 } from "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
-import { AuthSignature, Transaction, StakeMultiplierCurve } from "src/shared/Structs.sol";
+import { AuthSignature, Transaction } from "src/shared/Structs.sol";
 import { AppStorage, LibAppStorage } from "src/libs/LibAppStorage.sol";
 import { LibErrors } from "src/libs/LibErrors.sol";
 import { LibAuth } from "../libs/LibAuth.sol";
@@ -300,19 +300,28 @@ contract StakingFacet is AccessControl {
 
 
     /** @dev Gets the stake multiplier curve
-     * @return Coefficient value (scaled by 1e8)
+     * @param index The index of the multiplier to get
+     * @return The multiplier for the given index
      */
-    function stakeGetMultiplierCurve() external view returns (StakeMultiplierCurve memory) {
+    function stakeGetMultiplier(uint256 index) external view returns (uint32) {
         AppStorage storage s = LibAppStorage.diamondStorage();
-        return s.stakeMultiplierCurve;
+        return s.stakeMultipliers[index];
     }
 
-    /** @dev Updates the stake multiplier curve
-     * @param newCurve The new stake multiplier curve
+    /** @dev Updates the stake multiplier
+     * @param indices The indices of the multipliers to update
+     * @param multipliers The new multipliers
      */
-    function stakeUpdateMultiplierCurve(StakeMultiplierCurve calldata newCurve) external isAdmin {
+    function stakeUpdateMultipliers(uint256[] calldata indices, uint32[] calldata multipliers) external isAdmin {
         AppStorage storage s = LibAppStorage.diamondStorage();
-        s.stakeMultiplierCurve = newCurve;
+
+        if (indices.length != multipliers.length) {
+            revert LibErrors.InvalidInputs();
+        }
+
+        for (uint256 i = 0; i < indices.length; i++) {
+            s.stakeMultipliers[indices[i]] = multipliers[i];
+        }
     }
 
     /// PRIVATE FUNCTIONS ///   

@@ -6,7 +6,7 @@ import { ERC20Mock } from "lib/openzeppelin-contracts/contracts/mocks/token/ERC2
 import { IERC20Errors } from "lib/openzeppelin-contracts/contracts/interfaces/draft-IERC6093.sol";
 import { TestBaseContract } from "./utils/TestBaseContract.sol";
 import { LibErrors } from "src/libs/LibErrors.sol";
-import { AuthSignature, Transaction, StakeMultiplierCurve } from "src/shared/Structs.sol";
+import { AuthSignature, Transaction } from "src/shared/Structs.sol";
 
 contract StakingFacetTest is TestBaseContract {
     ERC20Mock public stakingToken;
@@ -484,38 +484,77 @@ contract StakingFacetTest is TestBaseContract {
     }
 
     // ================================================
-    // Stake Multiplier Curve Tests
+    // Stake Multiplier Tests
     // ================================================
 
-    function test_StakeCalculateMultiplier() public {
-        StakeMultiplierCurve memory curve = StakeMultiplierCurve({
-            coefficient: 101368385248,
-            coefficientScale: 100000000000
-        });
+    function test_StakeSetMultipliers() public {
+        uint256[] memory weekIds = new uint256[](3);
+        weekIds[0] = 1;
+        weekIds[1] = 2;
+        weekIds[2] = 3;
+
+        uint32[] memory multipliers = new uint32[](3);
+        multipliers[0] = 130;
+        multipliers[1] = 110;
+        multipliers[2] = 120;
 
         vm.prank(owner);
-        diamond.stakeUpdateMultiplierCurve(curve);
+        diamond.stakeUpdateMultipliers(weekIds, multipliers);
 
-        StakeMultiplierCurve memory storedCurve = diamond.stakeGetMultiplierCurve();
-        assertEq(storedCurve.coefficient, curve.coefficient);
-        assertEq(storedCurve.coefficientScale, curve.coefficientScale);
+        for(uint i = 0; i < weekIds.length; i++) {
+            assertEq(diamond.stakeGetMultiplier(weekIds[i]), multipliers[i]);
+        }
     }
 
-    function test_StakeUpdateMultiplierCurve_OnlyAdmin() public {
-        StakeMultiplierCurve memory curve = StakeMultiplierCurve({
-            coefficient: 101368385248,
-            coefficientScale: 100000000000
-        });
+    function test_StakeSetMultipliers_OnlyAdmin() public {
+        uint256[] memory weekIds = new uint256[](2);
+        weekIds[0] = 2;
+        weekIds[1] = 1;
+
+        uint32[] memory multipliers = new uint32[](2);
+        multipliers[0] = 120;
+        multipliers[1] = 110;
 
         vm.prank(account1);
         vm.expectRevert(abi.encodeWithSelector(LibErrors.CallerMustBeAdminError.selector));
-        diamond.stakeUpdateMultiplierCurve(curve);
+        diamond.stakeUpdateMultipliers(weekIds, multipliers);
 
         vm.prank(owner);
-        diamond.stakeUpdateMultiplierCurve(curve);
+        diamond.stakeUpdateMultipliers(weekIds, multipliers);
 
-        StakeMultiplierCurve memory storedCurve = diamond.stakeGetMultiplierCurve();
-        assertEq(storedCurve.coefficient, curve.coefficient);
-        assertEq(storedCurve.coefficientScale, curve.coefficientScale);
+        assertEq(diamond.stakeGetMultiplier(weekIds[0]), multipliers[0]);
+        assertEq(diamond.stakeGetMultiplier(weekIds[1]), multipliers[1]);
+    }
+
+    function test_StakeSetMultipliers_FailsIfArrayLengthMismatch() public {
+        uint256[] memory weekIds = new uint256[](2);
+        weekIds[0] = 1;
+        weekIds[1] = 2;
+
+        uint32[] memory multipliers = new uint32[](3);
+        multipliers[0] = 110;
+        multipliers[1] = 120;
+        multipliers[2] = 130;
+
+        vm.prank(owner);
+        vm.expectRevert(abi.encodeWithSelector(LibErrors.InvalidInputs.selector));
+        diamond.stakeUpdateMultipliers(weekIds, multipliers);
+    }
+
+    function test_StakeSetMultipliers_52Weeks() public {
+        uint256[] memory weekIds = new uint256[](52);
+        uint32[] memory multipliers = new uint32[](52);
+        
+        for(uint32 i = 0; i < 52; i++) {
+            weekIds[i] = i + 1;
+            multipliers[i] = 100 + i;
+        }
+
+        vm.prank(owner);
+        diamond.stakeUpdateMultipliers(weekIds, multipliers);
+
+        for(uint i = 0; i < 52; i++) {
+            assertEq(diamond.stakeGetMultiplier(i + 1), 100 + i);
+        }
     }
 }
