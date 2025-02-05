@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.2](https://github.com/Tribally-Games/contracts/compare/@tribally.games/contracts-v1.3.1...@tribally.games/contracts-v1.3.2) (2024-12-04)
+
+
+### Bug Fixes
+
+* improvements to staking logic ([2b22b20](https://github.com/Tribally-Games/contracts/commit/2b22b20373b584bd34dd4439aab07f49cc42b28c))
+* was creating multiple entries for staked amounts in a day for a user ([b0c684d](https://github.com/Tribally-Games/contracts/commit/b0c684dbb644aef1cb339efc67a2f22193fd9ad2))
+
 ## [1.3.1](https://github.com/Tribally-Games/contracts/compare/@tribally.games/contracts-v1.3.0...@tribally.games/contracts-v1.3.1) (2024-12-04)
 
 
