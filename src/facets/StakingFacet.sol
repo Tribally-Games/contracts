@@ -5,8 +5,9 @@ import { AuthSignature, Transaction } from "src/shared/Structs.sol";
 import { AppStorage, LibAppStorage } from "src/libs/LibAppStorage.sol";
 import { LibErrors } from "src/libs/LibErrors.sol";
 import { LibAuth } from "../libs/LibAuth.sol";
+import { AccessControl } from "src/shared/AccessControl.sol";
 
-contract StakingFacet {
+contract StakingFacet is AccessControl {
     /** @dev Emitted when a user deposits stake
      * @param user Address of the user who deposited
      * @param amount Amount of tokens deposited
@@ -295,6 +296,32 @@ contract StakingFacet {
     function stakeGetTotalClaimedForToken(address token) external view returns (uint256) {
         AppStorage storage s = LibAppStorage.diamondStorage();
         return s.stakingTotalClaimed[token];
+    }
+
+
+    /** @dev Gets the stake multiplier curve
+     * @param index The index of the multiplier to get
+     * @return The multiplier for the given index
+     */
+    function stakeGetMultiplier(uint256 index) external view returns (uint32) {
+        AppStorage storage s = LibAppStorage.diamondStorage();
+        return s.stakeMultipliers[index];
+    }
+
+    /** @dev Updates the stake multiplier
+     * @param indices The indices of the multipliers to update
+     * @param multipliers The new multipliers
+     */
+    function stakeUpdateMultipliers(uint256[] calldata indices, uint32[] calldata multipliers) external isAdmin {
+        AppStorage storage s = LibAppStorage.diamondStorage();
+
+        if (indices.length != multipliers.length) {
+            revert LibErrors.InvalidInputs();
+        }
+
+        for (uint256 i = 0; i < indices.length; i++) {
+            s.stakeMultipliers[indices[i]] = multipliers[i];
+        }
     }
 
     /// PRIVATE FUNCTIONS ///   

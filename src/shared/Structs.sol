@@ -12,3 +12,4 @@ struct Transaction {
     uint256 timestamp;
     uint256 amount;
 }
+
