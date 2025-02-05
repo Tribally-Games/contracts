@@ -1,12 +1,13 @@
 pragma solidity ^0.8.24;
 
 import { IERC20 } from "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
-import { AuthSignature, Transaction } from "src/shared/Structs.sol";
+import { AuthSignature, Transaction, StakeMultiplierCurve } from "src/shared/Structs.sol";
 import { AppStorage, LibAppStorage } from "src/libs/LibAppStorage.sol";
 import { LibErrors } from "src/libs/LibErrors.sol";
 import { LibAuth } from "../libs/LibAuth.sol";
+import { AccessControl } from "src/shared/AccessControl.sol";
 
-contract StakingFacet {
+contract StakingFacet is AccessControl {
     /** @dev Emitted when a user deposits stake
      * @param user Address of the user who deposited
      * @param amount Amount of tokens deposited
@@ -295,6 +296,23 @@ contract StakingFacet {
     function stakeGetTotalClaimedForToken(address token) external view returns (uint256) {
         AppStorage storage s = LibAppStorage.diamondStorage();
         return s.stakingTotalClaimed[token];
+    }
+
+
+    /** @dev Gets the stake multiplier curve
+     * @return Coefficient value (scaled by 1e8)
+     */
+    function stakeGetMultiplierCurve() external view returns (StakeMultiplierCurve memory) {
+        AppStorage storage s = LibAppStorage.diamondStorage();
+        return s.stakeMultiplierCurve;
+    }
+
+    /** @dev Updates the stake multiplier curve
+     * @param newCurve The new stake multiplier curve
+     */
+    function stakeUpdateMultiplierCurve(StakeMultiplierCurve calldata newCurve) external isAdmin {
+        AppStorage storage s = LibAppStorage.diamondStorage();
+        s.stakeMultiplierCurve = newCurve;
     }
 
     /// PRIVATE FUNCTIONS ///   

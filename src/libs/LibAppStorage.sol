@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0
 pragma solidity 0.8.24;
 
-import {Transaction} from "../shared/Structs.sol";
+import { Transaction, StakeMultiplierCurve } from "../shared/Structs.sol";
 
 struct AppStorage {
     bool diamondInitialized;
@@ -79,11 +79,15 @@ struct AppStorage {
      */
     mapping(address => mapping(address => Transaction[])) stakingUserClaims;
 
-
     /**
      * @dev The amount of tokens in the gateway pool.
      */
     uint gatewayPoolBalance;
+
+    /**
+     * @dev The stake multiplier curve.
+     */
+    StakeMultiplierCurve stakeMultiplierCurve;
 }
 
 

@@ -6,7 +6,7 @@ import { ERC20Mock } from "lib/openzeppelin-contracts/contracts/mocks/token/ERC2
 import { IERC20Errors } from "lib/openzeppelin-contracts/contracts/interfaces/draft-IERC6093.sol";
 import { TestBaseContract } from "./utils/TestBaseContract.sol";
 import { LibErrors } from "src/libs/LibErrors.sol";
-import { AuthSignature, Transaction } from "src/shared/Structs.sol";
+import { AuthSignature, Transaction, StakeMultiplierCurve } from "src/shared/Structs.sol";
 
 contract StakingFacetTest is TestBaseContract {
     ERC20Mock public stakingToken;
@@ -481,5 +481,41 @@ contract StakingFacetTest is TestBaseContract {
         assertEq(100, diamond.stakeGetUserTotalStaked(account1, day1));
         assertEq(300, diamond.stakeGetUserTotalStaked(account1, day2));
         assertEq(150, diamond.stakeGetUserTotalStaked(account1, day3));
+    }
+
+    // ================================================
+    // Stake Multiplier Curve Tests
+    // ================================================
+
+    function test_StakeCalculateMultiplier() public {
+        StakeMultiplierCurve memory curve = StakeMultiplierCurve({
+            coefficient: 101368385248,
+            coefficientScale: 100000000000
+        });
+
+        vm.prank(owner);
+        diamond.stakeUpdateMultiplierCurve(curve);
+
+        StakeMultiplierCurve memory storedCurve = diamond.stakeGetMultiplierCurve();
+        assertEq(storedCurve.coefficient, curve.coefficient);
+        assertEq(storedCurve.coefficientScale, curve.coefficientScale);
+    }
+
+    function test_StakeUpdateMultiplierCurve_OnlyAdmin() public {
+        StakeMultiplierCurve memory curve = StakeMultiplierCurve({
+            coefficient: 101368385248,
+            coefficientScale: 100000000000
+        });
+
+        vm.prank(account1);
+        vm.expectRevert(abi.encodeWithSelector(LibErrors.CallerMustBeAdminError.selector));
+        diamond.stakeUpdateMultiplierCurve(curve);
+
+        vm.prank(owner);
+        diamond.stakeUpdateMultiplierCurve(curve);
+
+        StakeMultiplierCurve memory storedCurve = diamond.stakeGetMultiplierCurve();
+        assertEq(storedCurve.coefficient, curve.coefficient);
+        assertEq(storedCurve.coefficientScale, curve.coefficientScale);
     }
 }
