@@ -27,10 +27,11 @@ struct AppStorage {
     address tribalToken;
 
     /**
-     * @dev The address that has the ability to approve withdrawals.
+     * @dev The wallet that approves certain actions.
      */
     address signer;
 
+    // DEPRECATED - can be used for future mappings
     mapping(address => uint) DEPRECATED_locked;    
 
     /**
