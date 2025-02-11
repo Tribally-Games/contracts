@@ -122,6 +122,9 @@ module.exports = {
         },
       },
     },
+    baseFork: {
+      rpcUrl: 'http://localhost:8545/',
+    }    
   },
   // Targets to deploy
   targets: {
@@ -169,6 +172,21 @@ module.exports = {
       ],
       // CREATE3 salt
       create3Salt: SALT,
+      // upgrades config
+      upgrades: {
+        // Whether the diamondCut() call will be done manually.
+        manualCut: true
+      }      
     },
+    baseFork: {
+      network: 'baseFork',
+      wallet: 'deployer_wallet',
+      initArgs: [],
+      // upgrades config
+      upgrades: {
+        // Whether the diamondCut() call will be done manually.
+        manualCut: true
+      }
+    }
   },
 };

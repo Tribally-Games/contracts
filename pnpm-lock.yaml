@@ -21,8 +21,8 @@ importers:
         specifier: ^16.3.1
         version: 16.4.5
       gemforge:
-        specifier: ^2.14.0
-        version: 2.14.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+        specifier: ^2.15.0
+        version: 2.15.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       husky:
         specifier: ^8.0.2
         version: 8.0.3
@@ -1378,8 +1378,8 @@ packages:
   function-bind@1.1.2:
     resolution: {integrity: sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==}
 
-  gemforge@2.14.0:
-    resolution: {integrity: sha512-b9Ji69WJXXLaCvcGSsTaT+1T1eby4luZT8yS/HOaRRhtJrq8nFUbA2ZN2RqTOOo9eke+7LjWQlDlPeQLY4ANiQ==}
+  gemforge@2.15.0:
+    resolution: {integrity: sha512-xpGJC22nazKT60IuEypTn1feJ3YhMKMjDzRaR8byCagwPSNRWddxbL/JzsTqdzPRDS0mxgt4a9I9mEoVFv8xAA==}
     engines: {node: '>=20.0.0'}
     hasBin: true
 
@@ -1859,6 +1859,7 @@ packages:
 
   lodash.get@4.4.2:
     resolution: {integrity: sha512-z+Uw/vLuy6gQe8cfaFWD7p0wVv8fJl3mbzXh33RS+0oW2wvUqiRXiQ69gLWSLpgB5/6sU+r6BlQR0MBILadqTQ==}
+    deprecated: This package is deprecated. Use the optional chaining (?.) operator instead.
 
   lodash.isfunction@3.0.9:
     resolution: {integrity: sha512-AirXNj15uRIMMPihnkInB4i3NHeb4iBtNg9WRWuK2o31S+ePwwNmDPaTL3o7dTJ+VXNZim7rFs4rxN4YU1oUJw==}
@@ -4988,7 +4989,7 @@ snapshots:
 
   function-bind@1.1.2: {}
 
-  gemforge@2.14.0(bufferutil@4.0.8)(utf-8-validate@5.0.10):
+  gemforge@2.15.0(bufferutil@4.0.8)(utf-8-validate@5.0.10):
     dependencies:
       '@solidity-parser/parser': 0.16.2
       bigval: 1.7.0
