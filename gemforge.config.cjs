@@ -1,6 +1,7 @@
 require('dotenv').config()
 
-const SALT = "0xf93ac9c61a8577e3e439a5639f65f9eca367e2c6de7086f3b4076c0a895d1902"
+const SALT_MAINNET = "0xf93ac9c61a8577e3e439a5639f65f9eca367e2c6de7086f3b4076c0a895d1902"
+const SALT_TESTNET = "0xf93ac9c61a8577e3e439a5639f65f9eca367e2c6de7086f3b4076c0a895d1924"
 
 module.exports = {
   version: 2,
@@ -141,7 +142,7 @@ module.exports = {
         "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
       ],
       // CREATE3 salt
-      create3Salt: SALT,
+      create3Salt: SALT_TESTNET,
     },
     base_sepolia: {
       // Network to deploy to
@@ -156,7 +157,7 @@ module.exports = {
         "0x000000000000000000000000000000000000dead"
       ],
       // CREATE3 salt
-      create3Salt: SALT,
+      create3Salt: SALT_TESTNET,
     },
     base: {
       // Network to deploy to
@@ -171,7 +172,7 @@ module.exports = {
         "0x000000000000000000000000000000000000dead"
       ],
       // CREATE3 salt
-      create3Salt: SALT,
+      create3Salt: SALT_MAINNET,
       // upgrades config
       upgrades: {
         // Whether the diamondCut() call will be done manually.
