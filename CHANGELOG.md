@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/Tribally-Games/contracts/compare/@tribally.games/contracts-v1.3.2...@tribally.games/contracts-v1.4.0) (2025-02-11)
+
+
+### Features
+
+* store stake curve params on chain ([#13](https://github.com/Tribally-Games/contracts/issues/13)) ([8207ef8](https://github.com/Tribally-Games/contracts/commit/8207ef8e5f55aa1a3f0b222f3836d5b9658a1073))
+
 ## [1.3.2](https://github.com/Tribally-Games/contracts/compare/@tribally.games/contracts-v1.3.1...@tribally.games/contracts-v1.3.2) (2024-12-04)
 
 
