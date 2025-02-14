@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 const SALT_MAINNET = "0xf93ac9c61a8577e3e439a5639f65f9eca367e2c6de7086f3b4076c0a895d1902"
-const SALT_TESTNET = "0xf93ac9c61a8577e3e439a5639f65f9eca367e2c6de7086f3b4076c0a895d1924"
+const SALT_TESTNET = "0xf93ac9c61a8577e3e439a5639f65f9eca367e2c6de7086f3b4076c0a895d1931"
 
 module.exports = {
   version: 2,
@@ -70,6 +70,19 @@ module.exports = {
     // This default list is taken from the diamond-2-hardhat library.
     // NOTE: we recommend not removing any of these existing names unless you know what you are doing.
     coreFacets: ["OwnershipFacet", "DiamondCutFacet", "DiamondLoupeFacet"],
+    // Function selectors that should NEVER be removed from the diamond.
+    // The default list is all the external methods of the default list of core facets defined above.
+    // NOTE: This is an array of function selectors, not method names.
+    protectedMethods: [
+      '0x8da5cb5b', // OwnershipFacet.owner()
+      '0xf2fde38b', // OwnershipFacet.transferOwnership()
+      '0x1f931c1c', // DiamondCutFacet.diamondCut()
+      '0x7a0ed627', // DiamondLoupeFacet.facets()
+      '0xcdffacc6', // DiamondLoupeFacet.facetAddress()
+      '0x52ef6b2c', // DiamondLoupeFacet.facetAddresses()
+      '0xadfca15e', // DiamondLoupeFacet.facetFunctionSelectors()
+      '0x01ffc9a7', // DiamondLoupeFacet.supportsInterface()
+    ],
   },
   // lifecycle hooks
   hooks: {

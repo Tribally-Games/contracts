@@ -12,7 +12,7 @@ _Note: the [TRIBAL token contract](https://github.com/Tribally-Games/tribal-toke
 ## On-chain addresses
 
 * Base: `0x3249787E176d97298f5137A1C50CD33ae23EBd97` ([Basescan](https://basescan.org/address/0x3249787E176d97298f5137A1C50CD33ae23EBd97), [Louper](https://louper.dev/diamond/0x3249787E176d97298f5137A1C50CD33ae23EBd97?network=base))
-* Base Sepolia: `0x5ADb5caEb2cacC42367A2592138916238A7E72Ca` ([Basescan](https://sepolia.basescan.org/address/0x5ADb5caEb2cacC42367A2592138916238A7E72Ca), [Louper](https://louper.dev/diamond/0x5ADb5caEb2cacC42367A2592138916238A7E72Ca?network=baseSepolia))
+* Base Sepolia: `0x169648b7A405E53dFf3e3B7aA8062b9130483E28` ([Basescan](https://sepolia.basescan.org/address/0x169648b7A405E53dFf3e3B7aA8062b9130483E28), [Louper](https://louper.dev/diamond/0x169648b7A405E53dFf3e3B7aA8062b9130483E28?network=baseSepolia))
 
 ## Usage guide
 
