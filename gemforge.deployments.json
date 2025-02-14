@@ -73,9 +73,9 @@
         "name": "DiamondProxy",
         "fullyQualifiedName": "DiamondProxy.sol:DiamondProxy",
         "sender": "0x82180b6EF1245318E631E18B391CD7b4a0C216B0",
-        "txHash": "0x3cd12607cca25d32b235f8eb1e8911691e06eb2018cce211a7fe316a4eb18e61",
+        "txHash": "0x72e6ce22a7f472be713fb4ed6d3f878143de11b89f2e281a3f1b28f307bf9ed2",
         "onChain": {
-          "address": "0x169648b7A405E53dFf3e3B7aA8062b9130483E28",
+          "address": "0x999C1045C7430642e6D05cb4Be30C0b3D310a2E7",
           "constructorArgs": [
             "0x82180b6EF1245318E631E18B391CD7b4a0C216B0"
           ]
@@ -85,9 +85,9 @@
         "name": "ConfigFacet",
         "fullyQualifiedName": "ConfigFacet.sol:ConfigFacet",
         "sender": "0x82180b6EF1245318E631E18B391CD7b4a0C216B0",
-        "txHash": "0x9f2d81a890caa0f49ccdb183f1a8e2f99f5dc2e880d8d63ae3f46bb020430dce",
+        "txHash": "0x9132138deb18dfed374137d0e64683f12ebd18762b09c4549af2dfb2870fd3bf",
         "onChain": {
-          "address": "0xa2e32a2f8187Af999F96897c04b1D03bD2ABB37c",
+          "address": "0xC727c0C6163717F9Da4a510bA0d797f7d1C6b343",
           "constructorArgs": []
         }
       },
@@ -95,9 +95,9 @@
         "name": "GatewayFacet",
         "fullyQualifiedName": "GatewayFacet.sol:GatewayFacet",
         "sender": "0x82180b6EF1245318E631E18B391CD7b4a0C216B0",
-        "txHash": "0xee33edc7b26eda1f9df1cca0a19d88e4fec8820a455b3adb88e66a15a511df2c",
+        "txHash": "0xb91fdc3ad741bd461e040c48d6ca2d2ae53d13bb723196e5b657cd218d911b42",
         "onChain": {
-          "address": "0x6EFD5c5898460b67560E2FcD86D1A6C01fe38AC4",
+          "address": "0x31b69aBF0B33bc708fb47D68581cEE648734d5e2",
           "constructorArgs": []
         }
       },
@@ -105,9 +105,9 @@
         "name": "SigningFacet",
         "fullyQualifiedName": "SigningFacet.sol:SigningFacet",
         "sender": "0x82180b6EF1245318E631E18B391CD7b4a0C216B0",
-        "txHash": "0x85e529c62fdf81b5bf356e3830168ddbb3bbc676d1ef92598da36cdc037b9177",
+        "txHash": "0x63c9ca77c51b8d6c63176418c2426e4ebba2296bf6732d2ce92b2d0c3d7428c0",
         "onChain": {
-          "address": "0x81b503B94C7608314f9D2c54EB19EC478f874648",
+          "address": "0xb2f568d93509cD960a4F67ac661bF406BF673c9e",
           "constructorArgs": []
         }
       },
@@ -115,9 +115,9 @@
         "name": "StakingFacet",
         "fullyQualifiedName": "StakingFacet.sol:StakingFacet",
         "sender": "0x82180b6EF1245318E631E18B391CD7b4a0C216B0",
-        "txHash": "0xed42b520752c16662cfd0cd7a9922d522504b2a59f31d4ac0874a14f768bf465",
+        "txHash": "0x7278ea28e381ac0e05e74ff6e9ffbb1e70b6169978abc921e15147d22d8b3037",
         "onChain": {
-          "address": "0x151251bC9E92AF208DC84250FeC444053755c99D",
+          "address": "0xD95BE2D760D04Aa17DCbD30e66a685ae5817FDA6",
           "constructorArgs": []
         }
       },
@@ -125,9 +125,9 @@
         "name": "InitDiamond",
         "fullyQualifiedName": "InitDiamond.sol:InitDiamond",
         "sender": "0x82180b6EF1245318E631E18B391CD7b4a0C216B0",
-        "txHash": "0x667239bc80ee7c34251226ba6bcfc799cc63b742ef64a815d06b292b12f1c496",
+        "txHash": "0x222855ac8a14961c69acdd50678d7e55204b081de1ab3274c252e70c46976cf0",
         "onChain": {
-          "address": "0xd94Af8c2A7418D78A65652052f4277a4E5AcbBcE",
+          "address": "0x55fFC154d3CC34e8242567f4F6bA3195A423368B",
           "constructorArgs": []
         }
       }

@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 const SALT_MAINNET = "0xf93ac9c61a8577e3e439a5639f65f9eca367e2c6de7086f3b4076c0a895d1902"
-const SALT_TESTNET = "0xf93ac9c61a8577e3e439a5639f65f9eca367e2c6de7086f3b4076c0a895d1931"
+const SALT_TESTNET = "0xf93ac9c61a8577e3e439a5639f65f9eca367e2c6de7086f3b4076c0a895d1932"
 
 module.exports = {
   version: 2,
@@ -165,7 +165,7 @@ module.exports = {
       // Initialization function arguments
       initArgs: [
         // TRIBAL token - see https://github.com/Tribally-Games/tribal-token
-        "0xD55592FB0907E505C361Ef6D007424f105CcBD93", 
+        "0xe13E40e8FdB815FBc4a1E2133AB5588C33BaC45d", 
         // null signer initially
         "0x000000000000000000000000000000000000dead"
       ],
@@ -180,7 +180,7 @@ module.exports = {
       // Initialization function arguments
       initArgs: [
         // TRIBAL token - see https://github.com/Tribally-Games/tribal-token
-        "0xD55592FB0907E505C361Ef6D007424f105CcBD93", 
+        "0xe13E40e8FdB815FBc4a1E2133AB5588C33BaC45d", 
         // null signer initially
         "0x000000000000000000000000000000000000dead"
       ],
