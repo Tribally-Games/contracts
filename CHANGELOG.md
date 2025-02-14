@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.4.1](https://github.com/Tribally-Games/contracts/compare/@tribally.games/contracts-v1.4.0...@tribally.games/contracts-v1.4.1) (2025-02-14)
+
+
+### Bug Fixes
+
+* better sepolia deployment + upgraded gemforge to one with bugfix ([a65ba50](https://github.com/Tribally-Games/contracts/commit/a65ba50ebd66e985894ac6b8b1fcc5fa1743602b))
+* updated tribally token address to new one ([4d23fce](https://github.com/Tribally-Games/contracts/commit/4d23fce9bd6b930dd351d25a20ced46f243c44c4))
+
 ## [1.4.0](https://github.com/Tribally-Games/contracts/compare/@tribally.games/contracts-v1.3.2...@tribally.games/contracts-v1.4.0) (2025-02-11)
 
 
