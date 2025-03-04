@@ -194,7 +194,7 @@ module.exports = {
     },
     baseFork: {
       network: 'baseFork',
-      wallet: 'deployer_wallet',
+      wallet: 'local_wallet',
       initArgs: [],
       // upgrades config
       upgrades: {

@@ -18,6 +18,7 @@
     "bootstrap": "forge install && git submodule update --init --recursive && npx husky install && npx husky add .husky/commit-msg 'npx commitlint --edit $1'",
     "prettify": "prettier --write .",
     "devnet": "anvil",
+    "devnet-baseFork": "anvil --fork-url https://mainnet.base.org",
     "clean": "forge clean",
     "test": "forge test -vv",
     "test-cov": "forge coverage --report lcov -vv",

@@ -100,6 +100,75 @@ $ pnpm build -v
 $ pnpm dep -v
 ```
 
+### Simulating live upgrades
+
+You can simulate a live upgrade locally.
+
+Run a local fork of the Base mainnet:
+
+```shell
+$ pnpm devnet-baseFork
+```
+
+The RPC server will now be running at http://localhost:8545
+
+Now try deploying to this fork:
+
+```shell
+$ pnpm dep baseFork --verbose
+```
+
+This will go though the upgrade process for the Diamond in the locally running Base fork
+
+You should see output that looks like the following:
+
+```
+GEMFORGE: Resolving what changes need to be applied ...
+GEMFORGE: Resolving methods on-chain ...
+GEMFORGE: Calling facets() on contract IDiamondProxy deployed at 0x3249787E176d97298f5137A1C50CD33ae23EBd97 with args () ...
+GEMFORGE: Resolving methods in artifacts ...
+GEMFORGE: Getting bytecode for contract at address 0xb16B2f6396185a516f1D8DD70A0E30c174559A4f ...
+GEMFORGE: [Replace] method setSigner(address) [0x6c19e783] by deploying new facet ConfigFacet
+GEMFORGE: [Replace] method setStakingToken(address) [0x1e9b12ef] by deploying new facet ConfigFacet
+```
+
+Note that it will not actually call `diamondCut()` and upgrade the Diamond since the owner is the SAFE multisig. Instead it will output the parameters for you to send the transaction manually:
+
+```
+GEMFORGE: Outputting upgrade tx params so that you can do the upgrade manually...
+
+GEMFORGE: ================================================================================
+
+GEMFORGE: Diamond: 0x3249787E176d97298f5137A1C50CD33ae23EBd97
+
+GEMFORGE: Tx data: 0x1f931c1c00000000000000000000000000000000000000000000000000000000..
+.......................................................................................
+.......................................................................................
+
+```
+
+So now we can pretend to the SAFE multisig and send this tx through:
+
+```shell
+$ cast rpc anvil_impersonateAccount 0x4b78Bc43E63AD6524A411F17Ff376Fd362DBB531 # base multisig wallet
+$ cast send --from 0x4b78Bc43E63AD6524A411F17Ff376Fd362DBB531 --unlocked 0x3249787E176d97298f5137A1C50CD33ae23EBd97 0x.... # final arg is the tx data blob from above
+```
+
+This transaction should succeed. At this point, the Diamond in the locally running Base fork should be fully upgraded. Check using:
+
+```shell
+$ pnpm query baseFork
+```
+
+You should hopefully see at the end:
+
+```
+Unrecognized facets: 0
+Unrecognized functions: 0
+```
+
+
+
 ### Publishing releases
 
 To create a new release of the package, first set your Github token env var:
