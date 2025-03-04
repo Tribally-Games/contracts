@@ -140,9 +140,9 @@
         "name": "ConfigFacet",
         "fullyQualifiedName": "ConfigFacet.sol:ConfigFacet",
         "sender": "0x82180b6EF1245318E631E18B391CD7b4a0C216B0",
-        "txHash": "0xd9f8b9a14831d50a5812696ad08a45cef601e0fa6d3a359f1a1aecbb12a57fd2",
+        "txHash": "0xc08b692c53bc4b815009fb9d635d33eeacf326a2ae96afb66a82c43b087569ea",
         "onChain": {
-          "address": "0xb16B2f6396185a516f1D8DD70A0E30c174559A4f",
+          "address": "0x6Db6944554893Bc95fF14b019869874637aB8326",
           "constructorArgs": []
         }
       },
@@ -150,9 +150,9 @@
         "name": "GatewayFacet",
         "fullyQualifiedName": "GatewayFacet.sol:GatewayFacet",
         "sender": "0x82180b6EF1245318E631E18B391CD7b4a0C216B0",
-        "txHash": "0x1648a2f998efe11835854f4ac6bd4cab62518cfdcf23d87f98afa023575ca874",
+        "txHash": "0xee50c425f907f5532290658e9c8e417b01a18792f2bdef00b6f5fd988a4527ed",
         "onChain": {
-          "address": "0x044Cb48DD400348Ae008Ef37E421B2Fc10d27a80",
+          "address": "0xd440eB37fac68E012a21a3Ecf3CF326c1Aca991b",
           "constructorArgs": []
         }
       },
@@ -160,9 +160,9 @@
         "name": "SigningFacet",
         "fullyQualifiedName": "SigningFacet.sol:SigningFacet",
         "sender": "0x82180b6EF1245318E631E18B391CD7b4a0C216B0",
-        "txHash": "0xa93c4025ce824afab86ae531a9ec5e2d8073726e64335c8496a991ac2c9f14b8",
+        "txHash": "0xdf4d77ec183ff1d7fc17f2cc66ae12d9b51f57883bd637dfe30efb69b8a6be47",
         "onChain": {
-          "address": "0xFa5ecd7fa7aABf20beed4A6c333FD619e5a68bf4",
+          "address": "0xbd876A887eEf2690B92A7f1D85E39d98eC69A009",
           "constructorArgs": []
         }
       },
@@ -170,9 +170,9 @@
         "name": "StakingFacet",
         "fullyQualifiedName": "StakingFacet.sol:StakingFacet",
         "sender": "0x82180b6EF1245318E631E18B391CD7b4a0C216B0",
-        "txHash": "0xa3f3c33e7761aa0760de7de131d1642ef9225b8ffe790558e5d091b0977d1b8c",
+        "txHash": "0x092902af6574995741557e0804720b0b0b6bf709411f4917587c43241b6ac8ba",
         "onChain": {
-          "address": "0xa8C1fEE48Caa3AEa9723181f385715c0b8C1d648",
+          "address": "0xe862055268bAe94D25e3e60a534dde6C91bD1aBb",
           "constructorArgs": []
         }
       },
@@ -207,9 +207,9 @@
         "name": "ConfigFacet",
         "fullyQualifiedName": "ConfigFacet.sol:ConfigFacet",
         "sender": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-        "txHash": "0xe865f42cd48c16ce1cbddc57f9e83a1b230514a6eafa07ef7ffc36bb329ccb6d",
+        "txHash": "0xa36487f2fc6dabde7803fa219cba38b661eae04420f20a151393d18feaf4298b",
         "onChain": {
-          "address": "0xb6057e08a11da09a998985874FE2119e98dB3D5D",
+          "address": "0x0B32a3F8f5b7E5d315b9E52E640a49A89d89c820",
           "constructorArgs": []
         }
       },
@@ -217,9 +217,9 @@
         "name": "GatewayFacet",
         "fullyQualifiedName": "GatewayFacet.sol:GatewayFacet",
         "sender": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-        "txHash": "0x093f099bbdf2fa6a9c5aa8ccab14deab68416ba43921a0d274a2ab8362b4ac89",
+        "txHash": "0x85176ae8037f5cd02a150d8ba364d3c21c8361f0484f998ef6feb991b1aee7b1",
         "onChain": {
-          "address": "0xad203b3144f8c09a20532957174fc0366291643c",
+          "address": "0xF357118EBd576f3C812c7875B1A1651a7f140E9C",
           "constructorArgs": []
         }
       },
@@ -227,9 +227,9 @@
         "name": "SigningFacet",
         "fullyQualifiedName": "SigningFacet.sol:SigningFacet",
         "sender": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-        "txHash": "0x186dfd6242d78cbc7cf1fa551787189e729582d37c70a3fd031facc4856f969c",
+        "txHash": "0xb3e5b15770ccbf13380907a602aa90062dcc6b71bbded67670765f5df612f503",
         "onChain": {
-          "address": "0x31403b1e52051883f2Ce1B1b4C89f36034e1221D",
+          "address": "0x519b05b3655F4b89731B677d64CEcf761f4076f6",
           "constructorArgs": []
         }
       },
@@ -237,9 +237,9 @@
         "name": "StakingFacet",
         "fullyQualifiedName": "StakingFacet.sol:StakingFacet",
         "sender": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-        "txHash": "0xf6e6814de699165da983f58ee7ceb8b5a690f01aedfda6dfd3e9de4104d4bd0c",
+        "txHash": "0xadbc127b1b4b9142f5f97f4d1b7e49195643b32ea52bb4a38ccd43a4e9908ed6",
         "onChain": {
-          "address": "0x4278C5d322aB92F1D876Dd7Bd9b44d1748b88af2",
+          "address": "0x057cD3082EfED32d5C907801BF3628B27D88fD80",
           "constructorArgs": []
         }
       },
