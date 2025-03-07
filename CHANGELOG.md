@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/Tribally-Games/contracts/compare/@tribally.games/contracts-v1.4.1...@tribally.games/contracts-v1.5.0) (2025-03-07)
+
+
+### Features
+
+* add ability to get/set tribal token address ([7abf3a8](https://github.com/Tribally-Games/contracts/commit/7abf3a8fc9e10e2f4873f400acf156a0a5c663f1))
+
 ## [1.4.1](https://github.com/Tribally-Games/contracts/compare/@tribally.games/contracts-v1.4.0...@tribally.games/contracts-v1.4.1) (2025-02-14)
 
 
