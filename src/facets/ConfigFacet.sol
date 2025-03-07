@@ -14,6 +14,11 @@ contract ConfigFacet is AccessControl {
    */
   event StakingTokenChanged(address newStakingToken);
 
+  /**
+   * @dev Emitted when the tribal token address is changed.
+   */
+  event TribalTokenChanged(address newTribalToken);
+
 
   /**
    * @dev Emitted when the signer address is changed.
@@ -25,13 +30,6 @@ contract ConfigFacet is AccessControl {
    */
   function signer() external view returns (address) {
     return LibAppStorage.diamondStorage().signer;
-  }
-
-  /**
-   * @dev Get the staking token address.
-   */
-  function stakingToken() external view returns (address) {
-    return LibAppStorage.diamondStorage().stakingToken;
   }
 
   /**
@@ -49,6 +47,15 @@ contract ConfigFacet is AccessControl {
     emit SignerChanged(_signer);
   }
 
+
+  /**
+   * @dev Get the staking token address.
+   */
+  function stakingToken() external view returns (address) {
+    return LibAppStorage.diamondStorage().stakingToken;
+  }
+
+
   /**
    * @dev Set the staking token address.
    *
@@ -62,5 +69,28 @@ contract ConfigFacet is AccessControl {
     LibAppStorage.diamondStorage().stakingToken = _stakingToken;
 
     emit StakingTokenChanged(_stakingToken);
+  }
+
+
+  /**
+   * @dev Get the tribal token address.
+   */
+  function tribalToken() external view returns (address) {
+    return LibAppStorage.diamondStorage().tribalToken;
+  }
+
+  /**
+   * @dev Set the tribal token address.
+   *
+   * @param _tribalToken The new tribal token address.
+   */
+  function setTribalToken(address _tribalToken) external isAdmin {
+    if (_tribalToken == address(0)) {
+      revert LibErrors.InvalidTribalTokenError();
+    }
+
+    LibAppStorage.diamondStorage().tribalToken = _tribalToken;
+
+    emit TribalTokenChanged(_tribalToken);
   }
 }

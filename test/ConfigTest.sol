@@ -93,4 +93,45 @@ contract ConfigTest is TestBaseContract {
         (address changedStakingToken) = abi.decode(entries[0].data, (address));
         assertEq(changedStakingToken, newStakingToken, "Invalid new staking token");
     }
+
+    function test_SetTribalToken_FailsIfNotAdmin() public {
+        vm.prank(account1);
+        vm.expectRevert(abi.encodeWithSelector(LibErrors.CallerMustBeAdminError.selector));
+        diamond.setTribalToken(address(0xABC));
+    }
+
+    function test_SetTribalToken_FailsIfZeroAddress() public {
+        vm.prank(owner);
+        vm.expectRevert(abi.encodeWithSelector(LibErrors.InvalidTribalTokenError.selector));
+        diamond.setTribalToken(address(0));
+    }
+
+    function test_SetTribalToken_Success() public {
+        address newTribalToken = address(0xABC);
+
+        vm.prank(owner);
+        diamond.setTribalToken(newTribalToken);
+
+        assertEq(diamond.tribalToken(), newTribalToken);
+    }
+
+    function test_SetTribalToken_EmitsEvent() public {
+        vm.recordLogs();
+
+        address newTribalToken = address(0xABC);
+
+        vm.prank(owner);
+        diamond.setTribalToken(newTribalToken);
+
+        Vm.Log[] memory entries = vm.getRecordedLogs();
+
+        assertEq(entries.length, 1, "Invalid entry count");
+        assertEq(
+            entries[0].topics[0],
+            keccak256("TribalTokenChanged(address)"),
+            "Invalid event signature"
+        );
+        (address changedTribalToken) = abi.decode(entries[0].data, (address));
+        assertEq(changedTribalToken, newTribalToken, "Invalid new tribal token");
+    }
 }

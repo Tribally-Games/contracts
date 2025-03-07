@@ -28,6 +28,11 @@ library LibErrors {
   error InvalidStakingTokenError();
 
   /**
+   * @dev The tribal token address is invalid.
+   */
+  error InvalidTribalTokenError();
+
+  /**
    * @dev The caller supplied an expired signature.
    */
   error SignatureExpired(address caller);
