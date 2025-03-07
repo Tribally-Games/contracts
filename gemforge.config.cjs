@@ -128,7 +128,7 @@ module.exports = {
       },
     },
     base: {
-      rpcUrl: "https://base.llamarpc.com",
+      rpcUrl: "https://base.lava.build",
       contractVerification: {
         foundry: {
           apiUrl: "https://api.basescan.org/api",
